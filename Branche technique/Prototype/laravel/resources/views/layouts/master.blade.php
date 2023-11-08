@@ -15,9 +15,8 @@
         @include("layouts.aside")
         {{-- end aside --}}
 
-
         {{-- content --}}
-        @yield("content")
+        {{-- @yield("content") --}}
         {{--  end content --}}
 
 
