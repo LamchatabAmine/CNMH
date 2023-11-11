@@ -25,10 +25,12 @@
                     Profile
                 </a>
                 <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    {{-- <i class="fa-solid fa-right-from-bracket"></i> --}}
-                    Logout
-                </a>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="dropdown-item">
+                        Logout
+                    </button>
+                </form>
             </div>
         </li>
 

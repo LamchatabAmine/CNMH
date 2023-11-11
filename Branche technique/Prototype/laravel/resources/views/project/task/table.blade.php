@@ -15,9 +15,9 @@
                 Description de tache 1.
             </td>
             <td>
-                <a href="{{ route('task.edit') }}" class="btn btn-sm btn-success"><i
+                <a href="{{ route('task.edit') }}" class="btn btn-sm btn-default "><i
                         class="fa-solid fa-pen-to-square"></i></a>
-                <button type="button" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></button>
+                <button type="button" class="btn btn-sm btn-default "><i class="fa-solid fa-trash"></i></button>
             </td>
         </tr>
         <tr>
@@ -27,9 +27,9 @@
                 Description de tache 2.
             </td>
             <td>
-                <a href="{{ route('task.edit') }}" class="btn btn-sm btn-success"><i
+                <a href="{{ route('task.edit') }}" class="btn btn-sm btn-default "><i
                         class="fa-solid fa-pen-to-square"></i></a>
-                <button type="button" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></button>
+                <button type="button" class="btn btn-sm btn-default "><i class="fa-solid fa-trash"></i></button>
             </td>
         </tr>
         <tr>
@@ -39,9 +39,9 @@
                 Description de tache 3.
             </td>
             <td>
-                <a href="{{ route('task.edit') }}" class="btn btn-sm btn-success"><i
+                <a href="{{ route('task.edit') }}" class="btn btn-sm btn-default "><i
                         class="fa-solid fa-pen-to-square"></i></a>
-                <button type="button" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></button>
+                <button type="button" class="btn btn-sm btn-default "><i class="fa-solid fa-trash"></i></button>
             </td>
         </tr>
     </tbody>

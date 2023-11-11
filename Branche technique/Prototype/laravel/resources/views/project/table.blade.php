@@ -23,9 +23,9 @@
                 <a href="{{ route('task.index') }}" class="btn btn-sm btn-primary">Preview</a>
             </td>
             <td>
-                <a href="{{ route('project.edit') }}" class="btn btn-sm btn-success"><i
+                <a href=" route('project.edit') " class="btn btn-sm btn-default "><i
                         class="fa-solid fa-pen-to-square"></i></a>
-                <button type="button" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></button>
+                <button type="button" class="btn btn-sm btn-default "><i class="fa-solid fa-trash"></i></button>
             </td>
         </tr>
         <tr>
@@ -40,9 +40,9 @@
                 <a href="{{ route('task.index') }}" class="btn btn-sm btn-primary">Preview</a>
             </td>
             <td>
-                <a href="{{ route('project.edit') }}" class="btn btn-sm btn-success"><i
+                <a href=" route('project.edit') " class="btn btn-sm btn-default "><i
                         class="fa-solid fa-pen-to-square"></i></a>
-                <button type="button" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></button>
+                <button type="button" class="btn btn-sm btn-default "><i class="fa-solid fa-trash"></i></button>
             </td>
         </tr>
         <tr>
@@ -57,9 +57,9 @@
                 <a href="{{ route('task.index') }}" class="btn btn-sm btn-primary">Preview</a>
             </td>
             <td>
-                <a href="{{ route('project.edit') }}" class="btn btn-sm btn-success"><i
+                <a href="route('project.edit') " class="btn btn-sm btn-default "><i
                         class="fa-solid fa-pen-to-square"></i></a>
-                <button type="button" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></button>
+                <button type="button" class="btn btn-sm btn-default "><i class="fa-solid fa-trash"></i></button>
             </td>
         </tr>
     </tbody>

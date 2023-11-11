@@ -4,12 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProjectTaskRequest;
+
+use App\Repositories\ManageRepository;
 
 class ProjectController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    protected $manageRepository;
+
+    public function __construct(ManageRepository $manageRepository) {
+        $this->manageRepository = $manageRepository;
+    }
+
+
     public function index()
     {
         return view('project.index');
@@ -26,9 +33,14 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProjectTaskRequest $request)
     {
-        //
+        // dd($request);
+        $data = $request->all();
+
+        $project = $this->manageRepository->create($data);
+
+        return redirect()->route('project.index')->with('success', 'projet créé avec succès');
     }
 
     /**
