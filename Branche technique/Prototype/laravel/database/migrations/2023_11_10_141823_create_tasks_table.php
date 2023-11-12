@@ -15,9 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->dateTime('startDate')->nullable();
-            $table->dateTime('endDate')->nullable();
-            $table->timestamps();
+            $table->date('startDate')->nullable();
+            $table->date('endDate')->nullable();
+            $table->unsignedBigInteger('project_id'); // Adding project_id as an unsigned big integer
+            $table->timestamps(); // This will create 'created_at' and 'updated_at' columns
+            // Adding a foreign key constraint to project_id
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
         });
     }
 

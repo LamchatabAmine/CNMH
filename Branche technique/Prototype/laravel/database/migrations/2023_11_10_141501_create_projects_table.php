@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->dateTime('startDate')->nullable();
-            $table->dateTime('endDate')->nullable();
-            $table->timestamps();
+            $table->date('startDate')->nullable();
+            $table->date('endDate')->nullable();
+            $table->timestamps(); // This will create 'created_at' and 'updated_at' columns
         });
     }
 

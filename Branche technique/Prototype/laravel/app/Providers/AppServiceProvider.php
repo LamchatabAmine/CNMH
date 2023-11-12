@@ -2,9 +2,15 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use App\Repositories\TaskRepository;
+use Illuminate\Pagination\Paginator;
+use App\Repositories\MemberRepository;
 use App\Repositories\ProjectRepository;
-use App\Repositories\ManageRepository;
+use Illuminate\Support\ServiceProvider;
+use App\Repositories\ManageTaskRepository;
+use App\Repositories\ManageMemberRepository;
+use App\Repositories\ManageProjectRepository;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -12,7 +18,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(ManageRepository::class, ProjectRepository::class);
+        $this->app->bind(ManageProjectRepository::class, ProjectRepository::class);
+        $this->app->bind(ManageTaskRepository::class, TaskRepository::class);
+        $this->app->bind(ManageMemberRepository::class, MemberRepository::class);
     }
 
     /**
@@ -20,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+            Paginator::useBootstrapFive();
+            Paginator::useBootstrapFour();
     }
 }

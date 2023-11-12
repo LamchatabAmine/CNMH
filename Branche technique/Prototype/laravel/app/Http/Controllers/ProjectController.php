@@ -6,21 +6,23 @@ use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProjectTaskRequest;
 
-use App\Repositories\ManageRepository;
+use App\Repositories\ManageProjectRepository;
 
 class ProjectController extends Controller
 {
-    protected $manageRepository;
+    protected $ManageProjectRepository;
 
-    public function __construct(ManageRepository $manageRepository) {
-        $this->manageRepository = $manageRepository;
+    public function __construct(ManageProjectRepository $ManageProjectRepository) {
+        $this->ManageProjectRepository = $ManageProjectRepository;
     }
 
 
     public function index()
     {
-        return view('project.index');
+        $projects = $this->ManageProjectRepository->getAll();
+        return view('project.index', compact('projects'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -38,7 +40,7 @@ class ProjectController extends Controller
         // dd($request);
         $data = $request->all();
 
-        $project = $this->manageRepository->create($data);
+        $project = $this->ManageProjectRepository->create($data);
 
         return redirect()->route('project.index')->with('success', 'projet créé avec succès');
     }
@@ -56,15 +58,19 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('project.edit');
+        return view('project.edit', compact('project'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Project $project)
+    public function update(ProjectTaskRequest $request, Project $project)
     {
-        //
+        $data = $request->all();
+
+        $this->ManageProjectRepository->update($project, $data);
+
+        return redirect()->route('project.index')->with('success', 'projet mis à jour avec succès.');
     }
 
     /**
@@ -72,6 +78,9 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+
+        $this->ManageProjectRepository->delete($project);
+
+        return redirect()->route('project.index')->with('success', 'projet supprimé avec succès');
     }
 }

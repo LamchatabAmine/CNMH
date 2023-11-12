@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
             'lastName' => 'lamchatab',
             'email' => 'lamchatab@gmail.com',
             'password' => bcrypt('lamchatab'),
-            'role' => 'member',
+            'role' => 'leader',
             'created_at' => now(),
             'updated_at' => now(),
         ]);

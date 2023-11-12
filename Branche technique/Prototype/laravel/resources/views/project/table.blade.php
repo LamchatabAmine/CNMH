@@ -11,56 +11,36 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>1</td>
-            <td>Projet 1</td>
-            <td>
-                Description de projet 1.
-            </td>
-            <td>11-7-2014</td>
-            <td>11-7-2014</td>
-            <td>
-                <a href="{{ route('task.index') }}" class="btn btn-sm btn-primary">Preview</a>
-            </td>
-            <td>
-                <a href=" route('project.edit') " class="btn btn-sm btn-default "><i
-                        class="fa-solid fa-pen-to-square"></i></a>
-                <button type="button" class="btn btn-sm btn-default "><i class="fa-solid fa-trash"></i></button>
-            </td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Projet 2</td>
-            <td>
-                Description de projet 2.
-            </td>
-            <td>11-7-2014</td>
-            <td>11-7-2014</td>
-            <td>
-                <a href="{{ route('task.index') }}" class="btn btn-sm btn-primary">Preview</a>
-            </td>
-            <td>
-                <a href=" route('project.edit') " class="btn btn-sm btn-default "><i
-                        class="fa-solid fa-pen-to-square"></i></a>
-                <button type="button" class="btn btn-sm btn-default "><i class="fa-solid fa-trash"></i></button>
-            </td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Projet 3</td>
-            <td>
-                Description de projet 3.
-            </td>
-            <td>11-7-2014</td>
-            <td>11-7-2014</td>
-            <td>
-                <a href="{{ route('task.index') }}" class="btn btn-sm btn-primary">Preview</a>
-            </td>
-            <td>
-                <a href="route('project.edit') " class="btn btn-sm btn-default "><i
-                        class="fa-solid fa-pen-to-square"></i></a>
-                <button type="button" class="btn btn-sm btn-default "><i class="fa-solid fa-trash"></i></button>
-            </td>
-        </tr>
+        @forelse ($projects as $index => $project)
+            <tr>
+                <td>{{ $index + 1 }}</td>
+                <td>{{ $project->name }}</td>
+                <td>
+                    {{ $project->description }}
+                </td>
+                <td>{{ $project->startDate }}</td>
+                <td>{{ $project->endDate }}</td>
+                <td>
+                    <a href="{{ route('task.index', $project) }}" class="btn btn-sm btn-primary">view tasks</a>
+                </td>
+                <td>
+                    <a href="{{ route('project.edit', $project) }}" class="btn btn-sm btn-default ">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </a>
+                    <form method="POST" action="{{ route('project.destroy', $project) }}" style="display: inline-block;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-default">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        @empty
+            <tr>
+                <td colspan="7">Aucun projet trouvé. <a href="{{ route('project.create') }}" class="mx-1">Ajouter
+                        projet</a></td>
+            </tr>
+        @endforelse
     </tbody>
 </table>

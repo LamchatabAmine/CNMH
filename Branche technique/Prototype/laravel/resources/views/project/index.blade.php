@@ -3,6 +3,12 @@
 @section('content')
     <div class="content-header">
         <div class="container-fluid">
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    {{ session('success') }}.
+                </div>
+            @endif
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1>List des Projets</h1>
@@ -58,11 +64,12 @@
                             </div>
                             <div class="">
                                 <ul class="pagination  m-0 float-right">
-                                    <li class="page-item"><a class="page-link" href="#">«</a></li>
+                                    {{ $projects->links() }}
+                                    {{-- <li class="page-item"><a class="page-link" href="#">«</a></li>
                                     <li class="page-item"><a class="page-link" href="#">1</a></li>
                                     <li class="page-item"><a class="page-link" href="#">2</a></li>
                                     <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">»</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">»</a></li> --}}
                                 </ul>
                             </div>
                         </div>

@@ -4,31 +4,62 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProjectTaskRequest;
+use App\Models\Project;
+
+use App\Repositories\ManageTaskRepository;
 
 class TaskController extends Controller
 {
+
+    protected $manageTaskRepository;
+
+    public function __construct(ManageTaskRepository $manageTaskRepository) {
+        $this->manageTaskRepository = $manageTaskRepository;
+    }
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        return view('project.task.index');
-    }
+
+    // public function index(Request $request, Project $project)
+    // {
+    //     // Assuming you want to find the project by ID
+    //     // $project = Project::find($projectId);
+    //     // abort_unless($project, 404, 'Project not found');
+    //     // abort_if(!$project, 404, 'Project not found');
+
+    //     $tasks = $this->manageTaskRepository->getAll($project);
+    //     return view('project.task.index', compact('tasks', 'project'));
+    // }
+
+    public function index(Request $request, Project $project)
+{
+    $tasks = $this->manageTaskRepository->getAll($project);
+    return view('project.task.index', compact('tasks', 'project'));
+}
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Project $project)
     {
-        return view('project.task.create');
+
+        return view('project.task.create', compact('project'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProjectTaskRequest $request, Project $project)
     {
-        //
+        // dd($request);
+        $data = $request->all();
+
+        $task = $this->manageTaskRepository->create($data, $project);
+
+        return redirect()->route('task.index', ['project' => $project])->with('success', 'Tache créé avec succès');
+        // return back();
     }
 
     /**
@@ -42,24 +73,31 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Task $task)
+    public function edit(Project $project , Task $task)
     {
-        return view('project.task.edit');
+        return view('project.task.edit', compact('task','project'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Task $task)
+    public function update(ProjectTaskRequest $request, Project $project, Task $task)
     {
-        //
+        $data = $request->all();
+
+        $task = $this->manageTaskRepository->update($project, $task, $data);
+
+        return redirect()->route('task.index', ['project' => $project])->with('success', 'Tache updated avec succès');
+        // return back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Task $task)
+    public function destroy(Project $project, Task $task)
     {
-        //
+        $this->manageTaskRepository->delete($task);
+
+        return redirect()->route('task.index', ['project' => $project])->with('success', 'tache supprimé avec succès');
     }
 }

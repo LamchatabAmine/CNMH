@@ -9,6 +9,7 @@ class Member extends Authenticatable
 {
     use HasFactory;
 
+    protected $table = 'users';
     /**
      * The attributes that are mass assignable.
      *
@@ -31,5 +32,16 @@ class Member extends Authenticatable
         'password',
     ];
 
-    // Additional properties or methods specific to the Member model can be added here
+
+    /**
+     * Scope a query to only include members.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeMembers($query)
+    {
+        return $query->where('role', '=', 'member');
+    }
+
 }

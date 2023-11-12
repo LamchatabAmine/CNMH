@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Project;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Task extends Model
 {
@@ -14,7 +15,12 @@ class Task extends Model
         'description',
         'startDate',
         'endDate',
+        'project_id'
     ];
+
+    // protected $hidden = [
+    //     'project_id',
+    // ];
 
 
     public function project()

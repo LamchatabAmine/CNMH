@@ -48,7 +48,7 @@
             <div class="form-group">
                 <label for="nom">Nom</label>
                 <input name="name" type="text" class="form-control" id="nom" placeholder="Enter nom"
-                    value="{{ old('name') }}">
+                    value="{{ old('name', isset($project) ? $project->name : '') }}">
             </div>
             @error('name')
                 <div class="text-danger mb-0">{{ $message }}</div>
@@ -56,7 +56,7 @@
             <div class="form-group mt-2 mb-0">
                 <label for="Description">Description</label>
                 <input name="description" type="text" class="form-control" id="Description" placeholder="Description"
-                    value="{{ old('description') }}">
+                    value="{{ old('description', isset($project) ? $project->description : '') }}">
             </div>
             @error('description')
                 <div class="text-danger ">{{ $message }}</div>
@@ -64,7 +64,7 @@
             <div class="form-group mt-3 ">
                 <label for="date">date debut</label>
                 <input name="startDate" type="date" class="form-control" id="date" placeholder="date debut"
-                    value="{{ old('startDate') }}">
+                    value="{{ old('startDate', isset($project) ? $project->startDate : '') }}">
             </div>
             @error('startDate')
                 <div class="text-danger">{{ $message }}</div>
@@ -72,7 +72,7 @@
             <div class="form-group ">
                 <label for="date">date fin</label>
                 <input name="endDate" type="date" class="form-control" id="date" placeholder="date fin"
-                    value="{{ old('endDate') }}">
+                    value="{{ old('endDate', isset($project) ? $project->endDate : '') }}">
             </div>
             @error('endDate')
                 <div class="text-danger">{{ $message }}</div>
