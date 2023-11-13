@@ -1,13 +1,13 @@
 <?php
 
-// use App\Http\Middleware\IsLeader;
+use App\Http\Middleware\IsLeader;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\MemberController;
-// use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\LoginUserController;
-// use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,21 +28,19 @@ use App\Http\Controllers\LoginUserController;
 
 
 
-// Route::get('/login', [LoginUserController::class, 'create'])->name('login');
-// Route::post('/login', [LoginUserController::class, 'store'])->name('login.store');
+Route::get('/login', [LoginUserController::class, 'create'])->name('login');
+Route::post('/login', [LoginUserController::class, 'store'])->name('login.store');
 
-Route::middleware('guest')->group(function () {
-    Route::get('/',[LoginUserController::class,'create'])
-                ->name('login');
+// Route::middleware('guest')->group(function () {
+//     Route::get('/', [LoginUserController::class, 'create'])->name('login');
+//     Route::post('login', [LoginUserController::class, 'store'])->name('login.store');
 
-    Route::post('login', [LoginUserController::class, 'store'])->name('login.store');
+//     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
+//                 ->name('password.request');
 
-    // Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
-    //             ->name('password.request');
-
-    // Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
-    //             ->name('password.email');
-});
+//     Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
+//                 ->name('password.email');
+// });
 
 Route::middleware('auth')->group(function () {
     Route::post('logout', [LoginUserController::class, 'destroy'])
@@ -78,9 +76,6 @@ Route::middleware(['auth', 'IsLeader'])->group(function () {
         Route::PUT('/{project}/{task}', [TaskController::class, 'update'])->name("task.update");
         Route::DELETE('/{project}/{task}', [TaskController::class, 'destroy'])->name("task.destroy");
     });
-});
-
-Route::middleware(['auth', 'IsLeader'])->group(function () {
     Route::prefix('member')->group(function () {
         // Route::resource('/', MemberController::class);
         Route::get('/', [MemberController::class, 'index'])->name("member.index");
@@ -93,9 +88,6 @@ Route::middleware(['auth', 'IsLeader'])->group(function () {
 });
 
 
-Route::middleware(['auth', 'IsMember'])->group(function () {
-    Route::get('/', [ProjectController::class, 'index'])->name("project.index");
-});
 
 
 

@@ -48,11 +48,8 @@
                 <p class="mb-1">
                     <a href="forgot-password.html">j'ai oublié mon mot de passe</a>
                 </p>
-
             </div>
-
         </div>
-
     </div>
     {{-- scripts --}}
     @include('layouts.script')
