@@ -13,7 +13,7 @@
                 <div class="col-sm-6">
                     <h1>List des Projets</h1>
                 </div>
-                @can('create', App\Models\User::class)
+                @can('create', App\Models\Member::class)
                     <div class="col-sm-6">
                         <div class="float-sm-right">
                             <a href="{{ route('project.create') }}" class="btn btn-sm btn-primary">Ajouter projet</a>
@@ -48,16 +48,13 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div class="form-group input-group-sm mb-0 col-md-3">
-                                <a href="{{ route('project.create') }}" class="btn btn-sm btn-primary">Ajouter projet</a>
-                            </div> --}}
                         </div>
                         <div class="card-body table-responsive p-0">
                             @include('project.table')
                         </div>
                         <div class="d-flex justify-content-between align-items-center p-2">
                             <div class="d-flex align-items-center">
-                                @can('create', App\Models\User::class)
+                                @can('create', App\Models\Member::class)
                                     <button type="button" class="btn btn-default btn-sm">
                                         <i class="fa-solid fa-file-arrow-down"></i>
                                         IMPORT
@@ -70,11 +67,6 @@
                             <div class="">
                                 <ul class="pagination  m-0 float-right">
                                     {{ $projects->links() }}
-                                    {{-- <li class="page-item"><a class="page-link" href="#">«</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">»</a></li> --}}
                                 </ul>
                             </div>
                         </div>

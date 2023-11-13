@@ -1,13 +1,13 @@
 <?php
 
-use App\Http\Middleware\IsLeader;
+// use App\Http\Middleware\IsLeader;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\MemberController;
-use App\Http\Controllers\ProfileController;
+// use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\LoginUserController;
-use App\Http\Controllers\Auth\PasswordResetLinkController;
+// use App\Http\Controllers\Auth\PasswordResetLinkController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,13 +18,6 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-
-// Route::get('member/waiting',function () {
-//     return view('waiting');
-// })->name('member.waiting');
-
-
 
 
 

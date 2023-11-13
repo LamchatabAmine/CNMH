@@ -7,7 +7,7 @@
             <th>Date debut</th>
             <th>Date fin</th>
             <th>Tache</th>
-            @can('create', App\Models\User::class)
+            @can('create', App\Models\Member::class)
                 <th>Action</th>
             @endcan
         </tr>
@@ -26,12 +26,12 @@
                     <a href="{{ route('task.index', $project) }}" class="btn btn-sm btn-primary">view tasks</a>
                 </td>
                 <td>
-                    @can('update', App\Models\User::class)
+                    @can('update', App\Models\Member::class)
                         <a href="{{ route('project.edit', $project) }}" class="btn btn-sm btn-default ">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </a>
                     @endcan
-                    @can('delete', App\Models\User::class)
+                    @can('delete', App\Models\Member::class)
                         <form method="POST" action="{{ route('project.destroy', $project) }}" style="display: inline-block;">
                             @csrf
                             @method('DELETE')
@@ -45,7 +45,7 @@
         @empty
             <tr>
                 <td colspan="7">Aucun projet trouvé.
-                    @can('create', App\Models\User::class)
+                    @can('create', App\Models\Member::class)
                         <a href="{{ route('project.create') }}" class="mx-1">Ajouter projet</a>
                     @endcan
                 </td>

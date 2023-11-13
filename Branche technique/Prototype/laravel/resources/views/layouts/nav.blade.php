@@ -7,14 +7,27 @@
         <li class="nav-item d-none d-sm-inline-block">
             <a href="{{ route('project.index') }}" class="nav-link">Projets</a>
         </li>
-        @can('view', App\Models\User::class)
+        @can('view', App\Models\Member::class)
             <li class="nav-item d-none d-sm-inline-block">
                 <a href="{{ route('member.index') }}" class="nav-link">Members</a>
             </li>
         @endcan
+
     </ul>
     <ul class="navbar-nav ml-auto">
-
+        <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+                <i class="fa-solid fa-language"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right p-0" style="left: inherit; right: 0px;">
+                <a href="#" class="dropdown-item active">
+                    English
+                </a>
+                <a href="#" class="dropdown-item ">
+                    French
+                </a>
+            </div>
+        </li>
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 {{-- <i class="far fa-bell"></i> --}}

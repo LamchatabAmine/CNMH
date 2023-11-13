@@ -30,7 +30,7 @@
                         </p>
                     </a>
                 </li>
-                @can('view', App\Models\User::class)
+                @can('view', App\Models\Member::class)
                     <li class="nav-item">
                         <a href="{{ route('member.index') }}" class="nav-link ">
                             <i class="fa-solid fa-users pl-1 pr-1"></i>
