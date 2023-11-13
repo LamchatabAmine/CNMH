@@ -7,9 +7,11 @@
         <li class="nav-item d-none d-sm-inline-block">
             <a href="{{ route('project.index') }}" class="nav-link">Projets</a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ route('member.index') }}" class="nav-link">Members</a>
-        </li>
+        @can('view', App\Models\User::class)
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="{{ route('member.index') }}" class="nav-link">Members</a>
+            </li>
+        @endcan
     </ul>
     <ul class="navbar-nav ml-auto">
 

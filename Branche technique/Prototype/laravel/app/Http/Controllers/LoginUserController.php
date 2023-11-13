@@ -28,12 +28,12 @@ class LoginUserController extends Controller
         // Attempt to authenticate the user
         if (Auth::attempt($validatedData)) {
             // Authentication successful
-            if (Auth::user()->role == 'leader') {
-                return redirect()->route('project.index');
-            } elseif (Auth::user()->role == 'member') {
-                return redirect()->route('member.waiting');
-            }
-            // return redirect()->route('project.index');
+            // if (Auth::user()->role == 'leader') {
+            //     return redirect()->route('project.index');
+            // } elseif (Auth::user()->role == 'member') {
+            //     return redirect()->route('member.waiting');
+            // }
+            return redirect()->route('project.index');
         }
 
         // Authentication failed

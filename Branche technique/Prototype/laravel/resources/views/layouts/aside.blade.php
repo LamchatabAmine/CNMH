@@ -30,14 +30,16 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ route('member.index') }}" class="nav-link ">
-                        <i class="fa-solid fa-users pl-1 pr-1"></i>
-                        <p>
-                            Members
-                        </p>
-                    </a>
-                </li>
+                @can('view', App\Models\User::class)
+                    <li class="nav-item">
+                        <a href="{{ route('member.index') }}" class="nav-link ">
+                            <i class="fa-solid fa-users pl-1 pr-1"></i>
+                            <p>
+                                Members
+                            </p>
+                        </a>
+                    </li>
+                @endcan
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
