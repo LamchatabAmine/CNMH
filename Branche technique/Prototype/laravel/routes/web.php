@@ -1,13 +1,13 @@
 <?php
 
-use App\Http\Middleware\IsLeader;
+// use App\Http\Middleware\IsLeader;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\MemberController;
-use App\Http\Controllers\ProfileController;
+// use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\LoginUserController;
-use App\Http\Controllers\Auth\PasswordResetLinkController;
+// use App\Http\Controllers\Auth\PasswordResetLinkController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,21 +20,22 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 */
 
 
-Route::get('member/waiting',function () {
-    return view('waiting');
-})->name('member.waiting');
+// Route::get('member/waiting',function () {
+//     return view('waiting');
+// })->name('member.waiting');
 
 
 
 
 
+// Route::get('/login', [LoginUserController::class, 'create'])->name('login');
+// Route::post('/login', [LoginUserController::class, 'store'])->name('login.store');
 
 Route::middleware('guest')->group(function () {
     Route::get('/',[LoginUserController::class,'create'])
                 ->name('login');
 
     Route::post('login', [LoginUserController::class, 'store'])->name('login.store');
-
 
     // Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
     //             ->name('password.request');
@@ -56,7 +57,7 @@ Route::middleware('auth')->group(function () {
 
 
 
-Route::middleware('auth', 'IsLeader')->group(function () {
+Route::middleware(['auth', 'IsLeader'])->group(function () {
     Route::prefix('project')->group(function () {
         // Route::resource('/', ProjectController::class);
         Route::get('/', [ProjectController::class, 'index'])->name("project.index");
@@ -77,96 +78,24 @@ Route::middleware('auth', 'IsLeader')->group(function () {
         Route::PUT('/{project}/{task}', [TaskController::class, 'update'])->name("task.update");
         Route::DELETE('/{project}/{task}', [TaskController::class, 'destroy'])->name("task.destroy");
     });
+});
 
+Route::middleware(['auth', 'IsLeader'])->group(function () {
     Route::prefix('member')->group(function () {
         // Route::resource('/', MemberController::class);
         Route::get('/', [MemberController::class, 'index'])->name("member.index");
         Route::get('/create', [MemberController::class, 'create'])->name("member.create");
         Route::post('/create', [MemberController::class, 'store'])->name("member.store");
-        Route::get('/edit', [MemberController::class, 'edit'])->name("member.edit");
+        Route::get('/edit/{member}', [MemberController::class, 'edit'])->name("member.edit");
         Route::PUT('/{member}', [MemberController::class, 'update'])->name("member.update");
         Route::DELETE('/{member}', [MemberController::class, 'destroy'])->name("member.destroy");
     });
 });
 
 
-// Route::middleware('auth', 'IsLeader')->group(function () {
-//     Route::prefix('member')->group(function () {
-//         Route::get('/', function () {
-//             return view('member.index');
-//         })->name("member.index");
-
-//         Route::get('/edit', function () {
-//             return view('member.edit');
-//         })->name("member.edit");
-
-//         Route::get('/create', function () {
-//             return view('member.create');
-//         })->name("member.create");
-//     });
-// });
-
-
-// Route::group([], function () {
-//     Route::prefix('member')->group(function () {
-//         Route::get('/', function () {
-//             return view('member.index');
-//         })->name("member.index");
-
-//         Route::get('/edit', function () {
-//             return view('member.edit');
-//         })->name("member.edit");
-
-//         Route::get('/create', function () {
-//             return view('member.create');
-//         })->name("member.create");
-//     });
-// });
-
-
-
-
-
-
-// Route::get('/', function () {
-//     return view('index');
-// })->name("login");
-
-
-
-// Route::group([], function () {
-//     Route::prefix('project')->group(function () {
-//         Route::get('/', function () {
-//             return view('project.index');
-//         })->name("project.index");
-
-//         Route::get('/edit', function () {
-//             return view('project.edit');
-//         })->name("project.edit");
-
-//         Route::get('/create', function () {
-//             return view('project.create');
-//         })->name("project.create");
-//     });
-// });
-
-// Route::group([], function () {
-//     Route::prefix('project/tache')->group(function () {
-//         Route::get('/', function () {
-//             return view('project.task.index');
-//         })->name("task.index");
-
-//         Route::get('/edit', function () {
-//             return view('project.task.edit');
-//         })->name("task.edit");
-
-//         Route::get('/create', function () {
-//             return view('project.task.create');
-//         })->name("task.create");
-//     });
-// });
-
-
+Route::middleware(['auth', 'IsMember'])->group(function () {
+    Route::get('/', [ProjectController::class, 'index'])->name("project.index");
+});
 
 
 

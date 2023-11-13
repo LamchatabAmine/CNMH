@@ -30,7 +30,7 @@
                         style="display: inline-block;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-default">
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="confirm('vous êtes sûr')">
                             <i class="fa-solid fa-trash"></i>
                         </button>
                     </form>

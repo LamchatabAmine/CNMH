@@ -11,10 +11,11 @@ class MemberRepository implements ManageMemberRepository {
     }
 
     public function create(array $data) {
+        // dd($data);
         return Member::create($data);
     }
 
-    public function update( array $data) {
+    public function update(Member $member, array $data) {
         $member->update($data);
         return $member;
     }

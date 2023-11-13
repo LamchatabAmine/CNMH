@@ -33,6 +33,7 @@ class LoginUserController extends Controller
             } elseif (Auth::user()->role == 'member') {
                 return redirect()->route('member.waiting');
             }
+            // return redirect()->route('project.index');
         }
 
         // Authentication failed

@@ -10,6 +10,7 @@
 npm install
 composer install
 php artisan migrate:fresh
-php artisan db:seed
+# php artisan db:seed
+php artisan db:seed --class=UserSeeder
 npm run dev
 ```

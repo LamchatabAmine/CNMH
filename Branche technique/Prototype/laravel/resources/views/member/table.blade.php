@@ -5,6 +5,7 @@
             <th>Nom</th>
             <th>Prenom</th>
             <th>email</th>
+            {{-- <th>Mode de passe</th> --}}
             <th>action</th>
         </tr>
     </thead>
@@ -20,9 +21,13 @@
                     {{ $member->email }}
                 </td>
                 <td>
-                    <a href="{{ route('member.edit') }}" class="btn btn-sm btn-default"><i
+                    <a href="{{ route('member.edit', $member) }}" class="btn btn-sm btn-default"><i
                             class="fa-solid fa-pen-to-square"></i></a>
-                    <button type="button" class="btn btn-sm btn-default"><i class="fa-solid fa-trash"></i></button>
+                    <form method="POST" action="{{ route('member.destroy', $member) }}" style="display: inline-block;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" onclick="confirm('vous êtes sûr')" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></button>
+                    </form>
                 </td>
             </tr>
         @empty
