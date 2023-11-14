@@ -80,6 +80,7 @@
             @enderror
         </div>
         <div class="card-footer">
+            <a href="{{ route('project.index') }}" class="btn btn-default">Cancel</a>
             <button type="submit" class="btn btn-primary">{{ isset($task) ? 'Update' : 'Submit' }}</button>
         </div>
     </form>

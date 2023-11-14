@@ -62,16 +62,6 @@
 
             <!-- Sidebar -->
             <div class="sidebar">
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
-                        <img src="https://static.vecteezy.com/system/resources/thumbnails/019/900/322/small/happy-young-cute-illustration-face-profile-png.png"
-                            class="img-circle elevation-2" alt="User Image">
-                    </div>
-                    <div class="info">
-                        <a href="#" class="d-block">Alexander Pierce</a>
-                    </div>
-                </div>
-
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
@@ -107,9 +97,13 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>List des Projets</h1>
+                            <h1>List des Projet</h1>
                         </div>
-
+                        <div class="col-sm-6">
+                            <div class="float-sm-right">
+                                <a href="./ajouter.html" class="btn btn-sm btn-primary">Ajouter Projet</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -118,9 +112,9 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
-                                <div class="card-header d-flex justify-content-between align-items-center col-md-12">
-                                    <div class="d-flex align-items-center col-md-8 p-0">
-                                        <div class="input-group input-group-sm col-md-4 p-0">
+                                <div class="card-header col-md-12">
+                                    <div class=" p-0">
+                                        <div class="input-group input-group-sm float-sm-right col-md-3 p-0">
                                             <input type="text" name="table_search" class="form-control float-right"
                                                 placeholder="Search">
                                             <div class="input-group-append">
@@ -129,17 +123,6 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        <div class="form-group input-group-sm mb-0 col-md-4">
-                                            <select class="form-control">
-                                                <option selected="">Select Projet...</option>
-                                                <option>projet 1</option>
-                                                <option>projet 2</option>
-                                                <option>projet 3</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group input-group-sm mb-0 col-md-3">
-                                        <a href="././tache/index.html" class="btn btn-sm btn-primary">Ajouter projet</a>
                                     </div>
                                 </div>
 
@@ -170,7 +153,7 @@
                                                         class="btn btn-sm btn-primary">Preview</a>
                                                 </td>
                                                 <td>
-                                                    <a href="./edit.html" class="btn btn-sm btn-success"><i
+                                                    <a href="./edit.html" class="btn btn-sm btn-default"><i
                                                             class="fa-solid fa-pen-to-square"></i></a>
                                                     <button type="button" class="btn btn-sm btn-danger"><i
                                                             class="fa-solid fa-trash"></i></button>
@@ -189,7 +172,7 @@
                                                         class="btn btn-sm btn-primary">Preview</a>
                                                 </td>
                                                 <td>
-                                                    <a href="./edit.html" class="btn btn-sm btn-success"><i
+                                                    <a href="./edit.html" class="btn btn-sm btn-default"><i
                                                             class="fa-solid fa-pen-to-square"></i></a>
                                                     <button type="button" class="btn btn-sm btn-danger"><i
                                                             class="fa-solid fa-trash"></i></button>
@@ -208,7 +191,7 @@
                                                         class="btn btn-sm btn-primary">Preview</a>
                                                 </td>
                                                 <td>
-                                                    <a href="./edit.html" class="btn btn-sm btn-success"><i
+                                                    <a href="./edit.html" class="btn btn-sm btn-default"><i
                                                             class="fa-solid fa-pen-to-square"></i></a>
                                                     <button type="button" class="btn btn-sm btn-danger"><i
                                                             class="fa-solid fa-trash"></i></button>
@@ -220,11 +203,12 @@
 
                                 <div class="d-flex justify-content-between align-items-center p-2">
                                     <div class="d-flex align-items-center">
-                                        <button type="button" class="btn btn-block btn-default btn-sm">
-                                            <!-- <span><i class="fa-solid fa-file-import"></i></span> -->
+                                        <button type="button" class="btn  btn-default btn-sm">
+                                            <i class="fa-solid fa-file-arrow-down"></i>
                                             IMPORT</button>
-                                        <button type="button"
-                                            class="btn btn-block btn-default btn-sm mt-0 mx-2">EXPORT</button>
+                                        <button type="button" class="btn  btn-default btn-sm mt-0 mx-2">
+                                            <i class="fa-solid fa-file-export"></i>
+                                            EXPORT</button>
                                     </div>
                                     <div class="">
                                         <ul class="pagination  m-0 float-right">
@@ -246,12 +230,11 @@
 
 
 
-
         <footer class="main-footer">
             <div class="float-right d-none d-sm-block">
                 <b>Version</b> 3.2.0
             </div>
-            <strong>Copyright © 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+            <strong>Copyright © 2014-2021 <a href="https://adminlte.io">Solicoders</a>.</strong> All rights reserved.
         </footer>
     </div>
 
