@@ -2,13 +2,13 @@
     <thead>
         <tr>
             <th>#</th>
-            <th>Nom</th>
-            <th>Description</th>
-            <th>Date debut</th>
-            <th>Date fin</th>
-            <th>Tache</th>
+            <th>{{__('words.name_thead')}}</th>
+            <th>{{__('words.description_thead')}}</th>
+            <th>{{__('words.startDate_thead')}}</th>
+            <th>{{__('words.endDate_thead')}}</th>
+            <th>{{__('words.tache_thead')}}</th>
             @can('create', App\Models\Member::class)
-                <th>Action</th>
+                <th>{{__('words.action_thead')}}</th>
             @endcan
         </tr>
     </thead>

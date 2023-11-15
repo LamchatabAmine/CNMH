@@ -3,20 +3,10 @@
     <!-- Brand Logo -->
     <a href="{{ route('project.index') }}" class="brand-link">
         <img src={{ asset('dist/img/solicoders-logo.png') }} class="brand-image img-circle elevation-3" alt="Group Image">
-        <span class="brand-text font-weight-light text-center">Solicoders</span>
+        <span class="brand-text font-weight-light text-center">{{__('words.logo_text')}}</span>
     </a>
-
     <!-- Sidebar -->
     <div class="sidebar">
-        {{-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="image">
-                <img src={{ asset('dist/img/solicoders-logo.png') }} class="img-circle elevation-2" alt="User Image">
-            </div>
-            <div class="info">
-                <a href="#profile" class="d-block">Amine Lamchatab</a>
-            </div>
-        </div> --}}
-
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
@@ -26,7 +16,7 @@
                     <a href="{{ route('project.index') }}" class="nav-link ">
                         <i class="nav-icon fas fa-table"></i>
                         <p>
-                            Projets
+                            {{__('words.project_link')}}
                         </p>
                     </a>
                 </li>
@@ -35,7 +25,7 @@
                         <a href="{{ route('member.index') }}" class="nav-link ">
                             <i class="fa-solid fa-users pl-1 pr-1"></i>
                             <p>
-                                Members
+                                {{__('words.member_link')}}
                             </p>
                         </a>
                     </li>

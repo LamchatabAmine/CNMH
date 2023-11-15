@@ -1,12 +1,14 @@
 <?php
 
 // use App\Http\Middleware\IsLeader;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
-use App\Http\Controllers\MemberController;
 // use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\LoginUserController;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 // use App\Http\Controllers\Auth\PasswordResetLinkController;
 /*
 |--------------------------------------------------------------------------
@@ -84,6 +86,9 @@ Route::middleware('auth')->group(function () {
     });
     Route::post('logout', [LoginUserController::class, 'destroy'])->name('logout');
 });
+
+
+
 
 
 

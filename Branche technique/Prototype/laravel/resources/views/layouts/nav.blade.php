@@ -5,11 +5,11 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ route('project.index') }}" class="nav-link">Projets</a>
+            <a href="{{ route('project.index') }}" class="nav-link">{{__('words.project_link')}}</a>
         </li>
         @can('view', App\Models\Member::class)
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="{{ route('member.index') }}" class="nav-link">Members</a>
+                <a href="{{ route('member.index') }}" class="nav-link">{{__('words.member_link')}}</a>
             </li>
         @endcan
 
@@ -36,14 +36,13 @@
             <div style="left: inherit; right: 0px;"
                 class="dropdown-menu dropdown-menu-sm dropdown-menu-right text-center">
                 <a href="#" class="dropdown-item">
-                    {{-- <i class="fas fa-file mr-2"></i> --}}
-                    Profile
+                    {{__('words.profile_link')}}
                 </a>
                 <div class="dropdown-divider"></div>
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button type="submit" class="dropdown-item">
-                        Logout
+                        {{__('words.logout_link')}}
                     </button>
                 </form>
             </div>

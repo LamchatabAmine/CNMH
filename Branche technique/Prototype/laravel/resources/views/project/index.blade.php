@@ -11,12 +11,12 @@
             @endif
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>List des Projets</h1>
+                    <h1>{{__('words.Title_project')}}</h1>
                 </div>
                 @can('create', App\Models\Member::class)
                     <div class="col-sm-6">
                         <div class="float-sm-right">
-                            <a href="{{ route('project.create') }}" class="btn btn-sm btn-primary">Ajouter projet</a>
+                            <a href="{{ route('project.create') }}" class="btn btn-sm btn-primary">{{__('words.AddProject_text')}}</a>
                         </div>
                     </div>
                 @endcan
@@ -57,12 +57,13 @@
                                 @can('create', App\Models\Member::class)
                                     <button type="button" class="btn btn-default btn-sm">
                                         <i class="fa-solid fa-file-arrow-down"></i>
-                                        IMPORT
+                                        {{__('words.import_button')}}
                                     </button>
                                 @endcan
                                 <button type="button" class="btn  btn-default btn-sm mt-0 mx-2">
                                     <i class="fa-solid fa-file-export"></i>
-                                    EXPORT</button>
+                                    {{__('words.export_button')}}
+                                </button>
                             </div>
                             <div class="">
                                 <ul class="pagination  m-0 float-right">
