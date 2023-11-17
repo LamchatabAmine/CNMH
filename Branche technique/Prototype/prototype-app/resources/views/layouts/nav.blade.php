@@ -4,14 +4,14 @@
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
+        {{-- <li class="nav-item d-none d-sm-inline-block">
             <a href="{{ route('project.index') }}" class="nav-link">{{ __('Projets') }}</a>
         </li>
         @can('view', App\Models\Member::class)
             <li class="nav-item d-none d-sm-inline-block">
                 <a href="{{ route('member.index') }}" class="nav-link">{{ __('Membres') }}</a>
             </li>
-        @endcan
+        @endcan --}}
 
     </ul>
     <ul class="navbar-nav ml-auto">

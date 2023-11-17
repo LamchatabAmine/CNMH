@@ -12,7 +12,7 @@
             @method('PUT')
         @endif
         <div class="card-body">
-            <div class="form-group">
+            <div class="form-group mb-0">
                 <label for="nom">Nom</label>
                 <input name="name" type="text" class="form-control" id="nom" placeholder="Enter nom"
                     value="{{ old('name', isset($project) ? $project->name : '') }}">

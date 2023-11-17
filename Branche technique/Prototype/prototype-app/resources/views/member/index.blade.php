@@ -43,15 +43,20 @@
                         <div class="card-body table-responsive p-0">
                             @include('member.table')
                         </div>
-                        <div class="d-flex justify-content-end align-items-center p-2">
+                        <div class="d-flex justify-content-between align-items-center p-2">
+                            <div class="d-flex align-items-center">
+                                @can('create', App\Models\Member::class)
+                                    <button type="button" class="btn  btn-default btn-sm">
+                                    <i class="fa-solid fa-file-arrow-down"></i>
+                                    IMPORT</button>
+                                @endcan
+                                <button type="button" class="btn  btn-default btn-sm mt-0 mx-2">
+                                    <i class="fa-solid fa-file-export"></i>
+                                    EXPORT</button>
+                            </div>
                             <div class="">
                                 <ul class="pagination  m-0 float-right">
                                     {{ $members->links() }}
-                                    {{-- <li class="page-item"><a class="page-link" href="#">«</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">»</a></li> --}}
                                 </ul>
                             </div>
                         </div>

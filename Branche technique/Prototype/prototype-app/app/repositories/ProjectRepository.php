@@ -7,7 +7,7 @@ use App\Models\Project;
 class ProjectRepository implements ManageProjectRepository {
     public function getAll() {
         // return Project::orderBy('startDate', 'asc')->paginate(5);
-        return Project::paginate(10);
+        return Project::paginate(5);
     }
 
     // public function find($id) {

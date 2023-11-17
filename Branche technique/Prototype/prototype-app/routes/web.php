@@ -42,8 +42,7 @@ Route::middleware('auth')->group(function () {
      // Task routes nested under project
     Route::prefix('tache')->group(function () {
         // Route::resource('/', TaskController::class);
-        Route::get('/{projects}', [TaskController::class, 'tasks'])->name("task.tasks");
-        Route::get('/{project}', [TaskController::class, 'index'])->name("task.index");
+        Route::get('/{project?}', [TaskController::class, 'index'])->name("task.index");
         Route::middleware(['auth', 'IsLeader'])->group(function () {
             Route::get('/{project}/create', [TaskController::class, 'create'])->name("task.create");
             Route::post('/{project}/create', [TaskController::class, 'store'])->name("task.store");

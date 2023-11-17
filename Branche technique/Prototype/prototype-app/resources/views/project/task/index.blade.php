@@ -1,12 +1,10 @@
 @extends('layouts.master')
-
 @section('content')
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-6 ">
-                    <h1>Taches de <a href="{{ route('project.index') }}"
-                            class="text-decoration-underline">{{ $project->name }}</a></h1>
+                <div class="col-sm-6">
+                    <h1>Taches de {{ ($project) ? $project->name : ""  }} </h1>
                 </div>
                 <div class="col-sm-6">
                     @can('create', App\Models\Member::class)
@@ -30,8 +28,19 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header col-md-12">
-                            <div class=" p-0">
-                                <div class="input-group input-group-sm float-sm-right col-md-3 p-0">
+                            <div class="d-flex justify-content-end align-items-center  p-0">
+                                <div class="form-group input-group-sm mb-0 col-md-2">
+                                    <select class="form-control">
+                                        @if ($projects)
+                                            @foreach ($projects as $projectName)
+                                            <option @if ($projectName->name == $project->name) @selected(true) @endif>{{$projectName->name}}</option>
+                                            @endforeach
+                                        @else
+                                            <option>Empthy</option>
+                                        @endif
+                                    </select>
+                                </div>
+                                <div class="input-group input-group-sm col-md-3 p-0">
                                     <input type="text" name="table_search" class="form-control float-right"
                                         placeholder="Search">
                                     <div class="input-group-append">
@@ -58,7 +67,9 @@
                             </div>
                             <div class="">
                                 <ul class="pagination  m-0 float-right">
-                                    {{ $tasks->links() }}
+                                    @if ($tasks)
+                                        {{ $tasks->links() }}
+                                    @endif
                                 </ul>
                             </div>
                         </div>

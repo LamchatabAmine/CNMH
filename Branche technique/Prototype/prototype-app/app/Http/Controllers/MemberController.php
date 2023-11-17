@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Member;
+use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Repositories\ManageMemberRepository;
 
@@ -18,9 +19,11 @@ class MemberController extends Controller
 
     public function index()
     {
+        $projects = Project::all();
         $members = $this->manageMemberRepository->getAll();
-        return view('member.index', compact('members'));
+        return view('member.index', compact('members', 'projects'));
     }
+
 
 
     public function create()

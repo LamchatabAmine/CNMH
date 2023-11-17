@@ -13,16 +13,13 @@ class TaskRepository implements ManageTaskRepository {
 
     public function getAll(Project $project)
     {
-        
+        // if (!$project) {
+        //     return
+        // }
         // Retrieve all tasks for the given project
-        return Task::where('project_id', $project->id)->paginate(2);
+        return Task::where('project_id', $project->id)->paginate(5);
     }
 
-    public function  getTasks(Project $project)
-    {
-        // Retrieve all tasks
-        return $project->paginate(2);
-    }
 
     public function create(array $data, Project $project)
     {

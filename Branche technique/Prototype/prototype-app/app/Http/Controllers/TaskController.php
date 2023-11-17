@@ -35,18 +35,18 @@ class TaskController extends Controller
 
     public function index(Request $request, Project $project)
     {
-        $projects  = Project::paginate(2);
+        $projects = Project::all();
+
+        // // If $project is not provided in the URL, get the first project
+        // if (!$project) {
+        //     $project = Project::first();
+        // }
+
         $tasks = $this->manageTaskRepository->getAll($project);
-        return view('project.task.index', compact('tasks', 'project','projects'));
+
+        return view('project.task.index', compact('tasks', 'project', 'projects'));
     }
 
-    public function tasks(Request $request)
-    {
-        $project = Project::first(); // Retrieve the first project
-        $tasks = $this->manageTaskRepository->getTasks($project);
-
-        return view('project.task.index', compact('tasks', 'project'));
-    }
 
 
     /**

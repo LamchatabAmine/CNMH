@@ -21,14 +21,20 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ route('task.tasks', $projects) }}" class="nav-link ">
-                        <i class="nav-icon fas fa-table"></i>
-                        <p>
-                            {{ __('Taches') }}
-                        </p>
-                    </a>
-                </li>
+                @isset($projects)
+                    @if($projects->isNotEmpty())
+                    <li class="nav-item">
+                        @if(isset($projects[0]))
+                            <a href="{{ route('task.index', ['project' => $projects[0]]) }}" class="nav-link">
+                        @else
+                            <a href="{{ route('task.index') }}" class="nav-link">
+                        @endif
+                                <i class="nav-icon fa-solid fa-bars-progress"></i>
+                                <p> {{ __('Taches') }} </p>
+                            </a>
+                    </li>
+                    @endif
+                @endisset
                 @can('view', App\Models\Member::class)
                     <li class="nav-item">
                         <a href="{{ route('member.index') }}" class="nav-link ">
