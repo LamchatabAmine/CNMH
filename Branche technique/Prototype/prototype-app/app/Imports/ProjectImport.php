@@ -19,9 +19,6 @@ class ProjectImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
 
-        // if (!$row[0]) {
-        //     return null;
-        // }
         try {
             return new Project([
                 'name'     => $row["nom"],

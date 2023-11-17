@@ -37,14 +37,14 @@
                     <div class="card">
                         <div class="card-header col-md-12">
                             <div class="d-flex justify-content-end align-items-center  p-0">
-                                <div class="form-group input-group-sm mb-0 col-md-2">
+                                {{-- <div class="form-group input-group-sm mb-0 col-md-2">
                                     <select class="form-control">
                                         <option selected="">Select Projet...</option>
                                         <option>projet 1</option>
                                         <option>projet 2</option>
                                         <option>projet 3</option>
                                     </select>
-                                </div>
+                                </div> --}}
                                 <div class="input-group input-group-sm col-md-3 p-0">
                                     <input type="text" name="table_search" class="form-control float-right"
                                         placeholder="Search">
