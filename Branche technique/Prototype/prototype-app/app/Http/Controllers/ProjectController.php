@@ -86,6 +86,7 @@ class ProjectController extends Controller
         return redirect()->route('project.index')->with('success', 'projet supprimé avec succès');
     }
 
+
     public function export()
     {
         $projects = Project::all();
