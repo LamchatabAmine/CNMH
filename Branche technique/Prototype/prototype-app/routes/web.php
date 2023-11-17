@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function () {
             Route::PUT('/{project}', [ProjectController::class, 'update'])->name("project.update");
             Route::DELETE('/{project}', [ProjectController::class, 'destroy'])->name("project.destroy");
             Route::get('export/', [ProjectController::class, 'export'])->name('project.export');
+            Route::post('import/', [ProjectController::class, 'import'])->name('project.import');
         });
     });
      // Task routes nested under project

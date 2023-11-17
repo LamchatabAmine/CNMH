@@ -27,4 +27,11 @@
             {{-- end footer --}}
         </div>
     </body>
+
+
+    <script>
+        function submitForm() {
+            document.getElementById("importForm").submit();
+        }
+    </script>
 </x-laravel-ui-adminlte::adminlte-layout>

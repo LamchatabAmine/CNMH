@@ -9,6 +9,12 @@
                     {{ session('success') }}.
                 </div>
             @endif
+            @if (session('error'))
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    {{ session('error') }}.
+                </div>
+            @endif
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1>{{ __('List des Projects') }}</h1>
@@ -56,10 +62,14 @@
                         <div class="d-flex justify-content-between align-items-center p-2">
                             <div class="d-flex align-items-center">
                                 @can('create', App\Models\Member::class)
-                                    <button type="button" class="btn btn-default btn-sm">
+                                <form action="{{ route('project.import') }}" method="post" enctype="multipart/form-data" id="importForm">
+                                    @csrf
+                                    <label for="upload" class="btn btn-default btn-sm mb-0 font-weight-normal">
                                         <i class="fa-solid fa-file-arrow-down"></i>
                                         {{ __('IMPORTER') }}
-                                    </button>
+                                    </label>
+                                    <input type="file" id="upload" name="file" style="display:none;" onchange="submitForm()"/>
+                                </form>
                                 @endcan
                                 <a href="{{route('project.export')}}" class="btn  btn-default btn-sm mt-0 mx-2">
                                     <i class="fa-solid fa-file-export"></i>

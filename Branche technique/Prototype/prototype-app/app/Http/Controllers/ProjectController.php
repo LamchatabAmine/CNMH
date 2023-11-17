@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use Illuminate\Http\Request;
+use App\Exports\ProjectExport;
+use App\Imports\ProjectImport;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\ProjectTaskRequest;
 use App\Repositories\ManageProjectRepository;
-use App\Exports\ProjectExport;
-use Maatwebsite\Excel\Facades\Excel;
 
 class ProjectController extends Controller
 {
@@ -91,5 +92,19 @@ class ProjectController extends Controller
         $projects = Project::all();
 
         return Excel::download(new ProjectExport($projects),'projects.xlsx');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv|max:2048',
+        ]);
+
+        try {
+            Excel::import(new ProjectImport, $request->file('file'));
+        } catch (\Error $e) {
+            return redirect()->route('project.index')->withError('Quelque chose s\'est mal passé, vérifiez votre fichier');
+        }
+        return redirect()->route('project.index')->with('success', 'Projet a ajouté avec succès');
     }
 }
