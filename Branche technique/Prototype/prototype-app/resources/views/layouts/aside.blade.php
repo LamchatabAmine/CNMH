@@ -21,6 +21,14 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('task.tasks', $projects) }}" class="nav-link ">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>
+                            {{ __('Taches') }}
+                        </p>
+                    </a>
+                </li>
                 @can('view', App\Models\Member::class)
                     <li class="nav-item">
                         <a href="{{ route('member.index') }}" class="nav-link ">

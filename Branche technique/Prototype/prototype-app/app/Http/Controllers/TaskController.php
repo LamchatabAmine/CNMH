@@ -34,10 +34,20 @@ class TaskController extends Controller
     // }
 
     public function index(Request $request, Project $project)
-{
-    $tasks = $this->manageTaskRepository->getAll($project);
-    return view('project.task.index', compact('tasks', 'project'));
-}
+    {
+        $projects  = Project::paginate(2);
+        $tasks = $this->manageTaskRepository->getAll($project);
+        return view('project.task.index', compact('tasks', 'project','projects'));
+    }
+
+    public function tasks(Request $request)
+    {
+        $project = Project::first(); // Retrieve the first project
+        $tasks = $this->manageTaskRepository->getTasks($project);
+
+        return view('project.task.index', compact('tasks', 'project'));
+    }
+
 
     /**
      * Show the form for creating a new resource.

@@ -7,6 +7,7 @@ use App\Models\Project;
 
 interface ManageTaskRepository {
     public function getAll(Project $project);
+    public function getTasks(Project $project);
     // public function find($id);
     public function create(array $data, Project $project);
     public function update(Project $project, Task $task, array $data);

@@ -9,9 +9,11 @@
                             class="text-decoration-underline">{{ $project->name }}</a></h1>
                 </div>
                 <div class="col-sm-6">
-                    <div class="float-sm-right">
-                        <a href="{{ route('task.create', $project) }}" class="btn btn-sm btn-primary">Ajouter Tache</a>
-                    </div>
+                    @can('create', App\Models\Member::class)
+                        <div class="float-sm-right">
+                            <a href="{{ route('task.create', $project) }}" class="btn btn-sm btn-primary">Ajouter Tache</a>
+                        </div>
+                    @endcan
                 </div>
             </div>
         </div>
@@ -45,9 +47,11 @@
                         </div>
                         <div class="d-flex justify-content-between align-items-center p-2">
                             <div class="d-flex align-items-center">
-                                <button type="button" class="btn  btn-default btn-sm">
+                                @can('create', App\Models\Member::class)
+                                    <button type="button" class="btn  btn-default btn-sm">
                                     <i class="fa-solid fa-file-arrow-down"></i>
                                     IMPORT</button>
+                                @endcan
                                 <button type="button" class="btn  btn-default btn-sm mt-0 mx-2">
                                     <i class="fa-solid fa-file-export"></i>
                                     EXPORT</button>
