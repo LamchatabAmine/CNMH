@@ -61,10 +61,10 @@
                                         {{ __('IMPORTER') }}
                                     </button>
                                 @endcan
-                                <button type="button" class="btn  btn-default btn-sm mt-0 mx-2">
+                                <a href="{{route('project.export')}}" class="btn  btn-default btn-sm mt-0 mx-2">
                                     <i class="fa-solid fa-file-export"></i>
                                     {{ __('EXPORTER') }}
-                                </button>
+                                </a>
                             </div>
                             <div class="">
                                 <ul class="pagination  m-0 float-right">

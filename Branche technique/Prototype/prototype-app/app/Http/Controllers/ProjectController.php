@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProjectTaskRequest;
-
 use App\Repositories\ManageProjectRepository;
+use App\Exports\ProjectExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProjectController extends Controller
 {
@@ -82,5 +83,13 @@ class ProjectController extends Controller
         $this->ManageProjectRepository->delete($project);
 
         return redirect()->route('project.index')->with('success', 'projet supprimé avec succès');
+    }
+
+
+    public function export()
+    {
+        $projects = Project::all();
+
+        return Excel::download(new ProjectExport($projects),'projects.xlsx');
     }
 }

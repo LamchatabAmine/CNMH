@@ -21,7 +21,7 @@ use App\Http\Controllers\LoginUserController;
 
 Route::get('/', function () {
     return view('auth.login');
-})->name('login');
+})->name('login')->middleware('guest');
 // Route::get('/', [LoginUserController::class, 'create'])->name('login');
 Route::post('/login', [LoginUserController::class, 'store'])->name('login.store');
 
@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/edit/{project}', [ProjectController::class, 'edit'])->name("project.edit");
             Route::PUT('/{project}', [ProjectController::class, 'update'])->name("project.update");
             Route::DELETE('/{project}', [ProjectController::class, 'destroy'])->name("project.destroy");
+            Route::get('export/', [ProjectController::class, 'export'])->name('project.export');
         });
     });
      // Task routes nested under project
