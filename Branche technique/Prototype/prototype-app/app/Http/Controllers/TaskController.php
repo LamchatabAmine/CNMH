@@ -22,30 +22,45 @@ class TaskController extends Controller
      * Display a listing of the resource.
      */
 
-    // public function index(Request $request, Project $project)
-    // {
-    //     // Assuming you want to find the project by ID
-    //     // $project = Project::find($projectId);
-    //     // abort_unless($project, 404, 'Project not found');
-    //     // abort_if(!$project, 404, 'Project not found');
-
-    //     $tasks = $this->manageTaskRepository->getAll($project);
-    //     return view('project.task.index', compact('tasks', 'project'));
-    // }
-
     public function index(Request $request, Project $project)
     {
         $projects = Project::all();
-
-        // // If $project is not provided in the URL, get the first project
-        // if (!$project) {
-        //     $project = Project::first();
-        // }
 
         $tasks = $this->manageTaskRepository->getAll($project);
 
         return view('project.task.index', compact('tasks', 'project', 'projects'));
     }
+
+
+    // public function getTasksByProject(Request $request, $projectId)
+    // {
+    //     $project = Project::findOrFail($projectId);
+    //     $tasks = Task::where('project_id', $project->id)->paginate(5);
+    //     // $tasks = $this->manageTaskRepository->getAll($project);
+
+    //     return response()->json([
+    //         'table' => view('project.task.index', compact('tasks'))->render(),
+    //         'pagination' => $tasks->links()->toHtml(), // Get pagination links
+    //     ]);
+    //     // return response()->json(['tasks' => $tasks, 'project' => $project]);
+    // }
+
+    public function getTasksByProject(Request $request, $projectId)
+    {
+        $project = Project::findOrFail($projectId);
+        $tasks = Task::where('project_id', $project->id)->paginate(5);
+
+        if ($request->ajax()) {
+            return response()->json([
+            'table' => view('project.task.table', compact('tasks'))->render(),
+            'pagination' => $tasks->links()->toHtml(), // Get pagination links
+            ]);
+        }
+    }
+
+
+
+
 
 
 
@@ -110,4 +125,21 @@ class TaskController extends Controller
 
         return redirect()->route('task.index', ['project' => $project])->with('success', 'tache supprimé avec succès');
     }
+
+
+
+//    public function filterTasks(Request $request)
+// {
+//     $project_id = $request->input('filterTasks');
+
+//     // Assuming 'id' is the primary key field of your 'tasks' table
+//     // Change 'id' to the actual primary key column of your 'tasks' table
+//     $tasks = Task::where('project_id', '=', $project_id)->paginate(3);
+
+//     // Return the filtered tasks to the view or as JSON, depending on your needs
+//     return response()->json(['tasks' => $tasks]);
+// }
+
+
+
 }

@@ -46,8 +46,8 @@
                                     </select>
                                 </div> --}}
                                 <div class="input-group input-group-sm col-md-3 p-0">
-                                    <input type="text" name="table_search" class="form-control float-right"
-                                        placeholder="Search">
+                                    <input id="searchProject" type="text" name="table_search"
+                                        class="form-control float-right" placeholder="Search">
                                     <div class="input-group-append">
                                         <button type="submit" class="btn btn-default">
                                             <i class="fas fa-search"></i>
@@ -56,22 +56,25 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body table-responsive p-0">
-                            @include('project.table')
+                        <div class="card-body table-responsive p-0 table-data">
+                            {{-- @include('project.table') --}}
+                            @include('project.table', ['projects' => $projects])
                         </div>
                         <div class="d-flex justify-content-between align-items-center p-2">
                             <div class="d-flex align-items-center">
                                 @can('create', App\Models\Member::class)
-                                <form action="{{ route('project.import') }}" method="post" enctype="multipart/form-data" id="importForm">
-                                    @csrf
-                                    <label for="upload" class="btn btn-default btn-sm mb-0 font-weight-normal">
-                                        <i class="fa-solid fa-file-arrow-down"></i>
-                                        {{ __('IMPORTER') }}
-                                    </label>
-                                    <input type="file" id="upload" name="file" style="display:none;" onchange="submitForm()"/>
-                                </form>
+                                    <form action="{{ route('project.import') }}" method="post" enctype="multipart/form-data"
+                                        id="importForm">
+                                        @csrf
+                                        <label for="upload" class="btn btn-default btn-sm mb-0 font-weight-normal">
+                                            <i class="fa-solid fa-file-arrow-down"></i>
+                                            {{ __('IMPORTER') }}
+                                        </label>
+                                        <input type="file" id="upload" name="file" style="display:none;"
+                                            onchange="submitForm()" />
+                                    </form>
                                 @endcan
-                                <a href="{{route('project.export')}}" class="btn  btn-default btn-sm mt-0 mx-2">
+                                <a href="{{ route('project.export') }}" class="btn  btn-default btn-sm mt-0 mx-2">
                                     <i class="fa-solid fa-file-export"></i>
                                     {{ __('EXPORTER') }}
                                 </a>

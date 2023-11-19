@@ -1,4 +1,4 @@
-<table class="table table-striped text-nowrap">
+<table class="table table-striped text-nowrap ">
     <thead>
         <tr>
             <th>#</th>

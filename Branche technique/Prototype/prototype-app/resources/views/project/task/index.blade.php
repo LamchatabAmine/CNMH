@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Taches de {{ ($project) ? $project->name : ""  }} </h1>
+                    <h1>Taches de {{ $project ? $project->name : '' }} </h1>
                 </div>
                 <div class="col-sm-6">
                     @can('create', App\Models\Member::class)
@@ -30,10 +30,12 @@
                         <div class="card-header col-md-12">
                             <div class="d-flex justify-content-end align-items-center  p-0">
                                 <div class="form-group input-group-sm mb-0 col-md-2">
-                                    <select class="form-control">
+                                    <select id="filterTasks" class="form-control">
                                         @if ($projects)
                                             @foreach ($projects as $projectName)
-                                            <option @if ($projectName->name == $project->name) @selected(true) @endif>{{$projectName->name}}</option>
+                                                <option value={{ $projectName->id }}
+                                                    @if ($projectName->name == $project->name) @selected(true) @endif>
+                                                    {{ $projectName->name }}</option>
                                             @endforeach
                                         @else
                                             <option>Empthy</option>
@@ -51,15 +53,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body table-responsive p-0">
+                        <div class="card-body table-responsive p-0 ">
                             @include('project.task.table')
                         </div>
                         <div class="d-flex justify-content-between align-items-center p-2">
                             <div class="d-flex align-items-center">
                                 @can('create', App\Models\Member::class)
                                     <button type="button" class="btn  btn-default btn-sm">
-                                    <i class="fa-solid fa-file-arrow-down"></i>
-                                    IMPORT</button>
+                                        <i class="fa-solid fa-file-arrow-down"></i>
+                                        IMPORT</button>
                                 @endcan
                                 <button type="button" class="btn  btn-default btn-sm mt-0 mx-2">
                                     <i class="fa-solid fa-file-export"></i>

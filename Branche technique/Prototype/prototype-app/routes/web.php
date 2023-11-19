@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('project')->group(function () {
         // Route::resource('/', ProjectController::class);
         Route::get('/', [ProjectController::class, 'index'])->name("project.index");
+        Route::get('/search', [ProjectController::class, 'searchProject'])->name("search.project");
         Route::middleware(['auth', 'IsLeader'])->group(function () {
             Route::get('/create', [ProjectController::class, 'create'])->name("project.create");
             Route::post('/create', [ProjectController::class, 'store'])->name("project.store");
@@ -43,6 +44,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('tache')->group(function () {
         // Route::resource('/', TaskController::class);
         Route::get('/{project?}', [TaskController::class, 'index'])->name("task.index");
+        Route::get('/{projectId}', [TaskController::class, 'getTasksByProject'])->name('tasks.by.project');
+
         Route::middleware(['auth', 'IsLeader'])->group(function () {
             Route::get('/{project}/create', [TaskController::class, 'create'])->name("task.create");
             Route::post('/{project}/create', [TaskController::class, 'store'])->name("task.store");

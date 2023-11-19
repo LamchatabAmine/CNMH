@@ -22,9 +22,12 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = $this->ManageProjectRepository->getAll();
+        // if ($request->ajax()) {
+        //     return view('project.index', compact('projects'));
+        // }
+
         return view('project.index', compact('projects'));
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -107,4 +110,37 @@ class ProjectController extends Controller
         }
         return redirect()->route('project.index')->with('success', 'Projet a ajouté avec succès');
     }
+
+
+
+
+
+    public function searchProject(Request $request)
+    {
+        $searchValue = $request->input('searchValue');
+
+        // Check if the search value is empty
+        if (empty($searchValue)) {
+            $projects = Project::paginate(5); // Return the initial state without filtering
+            //  $pagination = $projects->links()->toHtml(); // Get pagination links
+        } else {
+            $projects = Project::where('name', 'like', '%' . $searchValue . '%')->paginate(5);
+            // $pagination = $projects->links()->toHtml(); // Get pagination links
+        }
+
+        if ($request->ajax()) {
+            return response()->json([
+            'table' => view('project.table', compact('projects'))->render(),
+            'pagination' => $projects->links()->toHtml(), // Get pagination links
+            ]);
+        }
+
+    }
+
+
+
+
+
+
+
 }

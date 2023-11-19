@@ -2,13 +2,13 @@
     <thead>
         <tr>
             <th>#</th>
-            <th>{{__('Nom')}}</th>
-            <th>{{__('Description')}}</th>
-            <th>{{__('Date debut')}}</th>
-            <th>{{__('Date fin')}}</th>
-            <th>{{__('Taches')}}</th>
+            <th>{{ __('Nom') }}</th>
+            <th>{{ __('Description') }}</th>
+            <th>{{ __('Date debut') }}</th>
+            <th>{{ __('Date fin') }}</th>
+            {{-- <th>{{__('Taches')}}</th> --}}
             @can('create', App\Models\Member::class)
-                <th>{{__('Action')}}</th>
+                <th>{{ __('Action') }}</th>
             @endcan
         </tr>
     </thead>
@@ -22,15 +22,16 @@
                 </td>
                 <td>{{ $project->startDate }}</td>
                 <td>{{ $project->endDate }}</td>
-                <td>
+                {{-- <td>
                     <a href="{{ route('task.index', $project) }}" class="btn btn-sm btn-primary">view tasks</a>
-                </td>
+                </td> --}}
                 <td>
                     @can('update', App\Models\Member::class)
                         <a href="{{ route('project.edit', $project) }}" class="btn btn-sm btn-default ">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </a>
                     @endcan
+                    <a href="{{ route('task.index', $project) }}" class="btn btn-sm btn-primary">view tasks</a>
                     @can('delete', App\Models\Member::class)
                         <form method="POST" action="{{ route('project.destroy', $project) }}" style="display: inline-block;">
                             @csrf

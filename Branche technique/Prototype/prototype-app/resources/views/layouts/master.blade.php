@@ -28,10 +28,75 @@
         </div>
     </body>
 
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script>
         function submitForm() {
             document.getElementById("importForm").submit();
         }
     </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            $(document).on('keyup', '#searchProject', function(e) {
+                e.preventDefault();
+                let searchValue = $(this).val();
+                // let page = $('.pagination').find('.active').text(); // Get the current active page
+                $.ajax({
+                    url: "{{ route('search.project') }}",
+                    method: 'GET',
+                    data: {
+                        searchValue: searchValue
+                    },
+                    success: function(data) {
+                        $('.table-data').html(data.table);
+                        $('.pagination').html(data.pagination);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+
+            $('#filterTasks').on('change', function(e) {
+                let projectId = $(this).val();
+
+                $.ajax({
+                    url: "{{ route('tasks.by.project', ['projectId' => ':projectId']) }}".replace(
+                        ':projectId', projectId),
+                    method: 'GET',
+                    data: {
+                        'project': projectId
+                    },
+                    success: function(data) {
+                        $('.table-tasks').html(data.table);
+                        $('.pagination').html(data.pagination);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+
+
+
+
+
+
+
+
+
+
+
+
+
+        });
+    </script>
+
+
+
+
+
 </x-laravel-ui-adminlte::adminlte-layout>
