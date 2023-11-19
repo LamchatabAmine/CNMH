@@ -62,13 +62,21 @@
                         <div class="d-flex justify-content-between align-items-center p-2">
                             <div class="d-flex align-items-center">
                                 @can('create', App\Models\Member::class)
-                                    <button type="button" class="btn  btn-default btn-sm">
-                                        <i class="fa-solid fa-file-arrow-down"></i>
-                                        IMPORT</button>
+                                    <form action="{{ route('task.import', $project) }}" method="post"
+                                        enctype="multipart/form-data" id="importForm">
+                                        @csrf
+                                        <label for="upload" class="btn btn-default btn-sm mb-0 font-weight-normal">
+                                            <i class="fa-solid fa-file-arrow-down"></i>
+                                            {{ __('IMPORTER') }}
+                                        </label>
+                                        <input type="file" id="upload" name="file" style="display:none;"
+                                            onchange="submitForm()" />
+                                    </form>
                                 @endcan
-                                <button type="button" class="btn  btn-default btn-sm mt-0 mx-2">
+                                <a href="{{ route('task.export', $project) }}" class="btn  btn-default btn-sm mt-0 mx-2">
                                     <i class="fa-solid fa-file-export"></i>
-                                    EXPORT</button>
+                                    {{ __('EXPORTER') }}
+                                </a>
                             </div>
                             <div class="">
                                 <ul class="pagination  m-0 float-right">

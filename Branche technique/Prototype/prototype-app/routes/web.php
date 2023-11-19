@@ -30,13 +30,13 @@ Route::middleware('auth')->group(function () {
         // Route::resource('/', ProjectController::class);
         Route::get('/', [ProjectController::class, 'index'])->name("project.index");
         Route::get('/search', [ProjectController::class, 'searchProject'])->name("search.project");
+        Route::get('export/', [ProjectController::class, 'export'])->name('project.export');
         Route::middleware(['auth', 'IsLeader'])->group(function () {
             Route::get('/create', [ProjectController::class, 'create'])->name("project.create");
             Route::post('/create', [ProjectController::class, 'store'])->name("project.store");
             Route::get('/edit/{project}', [ProjectController::class, 'edit'])->name("project.edit");
             Route::PUT('/{project}', [ProjectController::class, 'update'])->name("project.update");
             Route::DELETE('/{project}', [ProjectController::class, 'destroy'])->name("project.destroy");
-            Route::get('export/', [ProjectController::class, 'export'])->name('project.export');
             Route::post('import/', [ProjectController::class, 'import'])->name('project.import');
         });
     });
@@ -45,12 +45,14 @@ Route::middleware('auth')->group(function () {
         // Route::resource('/', TaskController::class);
         Route::get('/{project}', [TaskController::class, 'index'])->name("task.index");
         Route::get('/{project}/search', [TaskController::class, 'searchTask'])->name("search.task");
+        Route::get('/{project}/export/', [TaskController::class, 'export'])->name('task.export');
         Route::middleware(['auth', 'IsLeader'])->group(function () {
             Route::get('/{project}/create', [TaskController::class, 'create'])->name("task.create");
             Route::post('/{project}/create', [TaskController::class, 'store'])->name("task.store");
             Route::get('/{project}/edit/{task}', [TaskController::class, 'edit'])->name("task.edit");
             Route::PUT('/{project}/{task}', [TaskController::class, 'update'])->name("task.update");
             Route::DELETE('/{project}/{task}', [TaskController::class, 'destroy'])->name("task.destroy");
+            Route::post('/{project}/import/', [TaskController::class, 'import'])->name('task.import');
         });
     });
     Route::middleware(['auth', 'IsLeader'])->group(function () {

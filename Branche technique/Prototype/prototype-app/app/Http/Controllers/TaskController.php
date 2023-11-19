@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
-use Illuminate\Http\Request;
-use App\Http\Requests\ProjectTaskRequest;
 use App\Models\Project;
-
+use App\Exports\TaskExport;
+use App\Imports\TaskImport;
+use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Requests\ProjectTaskRequest;
 use App\Repositories\ManageTaskRepository;
 
 class TaskController extends Controller
@@ -28,27 +30,6 @@ class TaskController extends Controller
         return view('project.task.index', compact('tasks', 'project', 'projects'));
     }
 
-    public function searchTask(Request $request, $project)
-    {
-        $search = $request->input('search');
-        $project = Project::findOrFail($project);
-
-        // Check if the search value is empty
-        if (empty($search)) {
-            $tasks = $this->manageTaskRepository->getAll($project);
-        } else {
-            $tasks = Task::where('project_id', $project->id)->where('name', 'like', '%' . $search . '%')->paginate(5);
-        }
-
-        // Controller code
-        if ($request->ajax()) {
-            return response()->json([
-                'table' => view('project.task.table', compact('tasks', 'project'))->render(),
-                'pagination' => $tasks->links()->toHtml(),
-            ]);
-        }
-
-    }
 
 
 
@@ -103,4 +84,53 @@ class TaskController extends Controller
     }
 
 
+    public function export(Project $project)
+    {
+        $tasks = Task::select('name', 'description', 'startDate', 'endDate')
+                ->where('project_id', $project->id)
+                ->get();
+        // $tasks = Task::select('name', 'description', 'startDate', 'endDate')->get();
+        return Excel::download(new TaskExport($tasks),'Taches.xlsx');
+    }
+
+
+
+    public function import(Request $request, Project $project)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv|max:2048',
+        ]);
+
+        try {
+            Excel::import(new TaskImport($project->id), $request->file('file'));
+            // Excel::import(new TaskImport, $request->file('file'));
+        } catch (\Error $e) {
+            return redirect()->route('task.index', $project)->withError('Quelque chose s\'est mal passé, vérifiez votre fichier');
+        }
+        return redirect()->route('task.index', $project)->with('success', 'Taches a ajouté avec succès');
+    }
+
+
+
+    public function searchTask(Request $request, $project)
+    {
+        $search = $request->input('search');
+        $project = Project::findOrFail($project);
+
+        // Check if the search value is empty
+        if (empty($search)) {
+            $tasks = $this->manageTaskRepository->getAll($project);
+        } else {
+            $tasks = Task::where('project_id', $project->id)->where('name', 'like', '%' . $search . '%')->paginate(5);
+        }
+
+        // Controller code
+        if ($request->ajax()) {
+            return response()->json([
+                'table' => view('project.task.table', compact('tasks', 'project'))->render(),
+                'pagination' => $tasks->links()->toHtml(),
+            ]);
+        }
+
+    }
 }
