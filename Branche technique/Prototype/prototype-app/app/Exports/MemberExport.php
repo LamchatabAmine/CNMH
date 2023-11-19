@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\Project;
+use App\Models\Member;
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -10,7 +10,7 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class ProjectExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
+class MemberExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
     protected $data;
 
@@ -20,24 +20,19 @@ class ProjectExport implements FromCollection, WithHeadings, ShouldAutoSize, Wit
 
     public function headings(): array{
         return [
+            'Prenom',
             'Nom',
-            'Description',
-            'Date debut',
-            'Date fin',
+            'email',
         ];
     }
 
     public function collection()
     {
-        // return $this->data->toArray();
-
-        // Transform the data before exporting
-        return $this->data->map(function ($project) {
+        return $this->data->map(function ($member) {
             return [
-                'Nom' => $project->name,
-                'Description' => $project->description,
-                'Date debut' => $project->startDate,
-                'Date fin' => $project->endDate,
+                'Prenom' => $member->firstName,
+                'Nom' => $member->lastName,
+                'email' => $member->email,
             ];
         });
     }
@@ -50,4 +45,7 @@ class ProjectExport implements FromCollection, WithHeadings, ShouldAutoSize, Wit
             1    => ['font' => ['bold' => true]],
         ];
     }
+
+
+
 }

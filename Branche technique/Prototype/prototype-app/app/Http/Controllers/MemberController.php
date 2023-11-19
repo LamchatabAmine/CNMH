@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Member;
-use App\Models\Project;
-use Illuminate\Http\Request;
-use App\Repositories\ManageMemberRepository;
+use App\Imports\MemberImport;
+    use App\Models\Project;
+    use Illuminate\Http\Request;
+    use App\Exports\MemberExport;
+    use App\Repositories\ManageMemberRepository;
+    use Maatwebsite\Excel\Facades\Excel;
 
-class MemberController extends Controller
+
+    class MemberController extends Controller
 {
 
     protected $manageMemberRepository;
@@ -26,29 +30,6 @@ class MemberController extends Controller
 
 
 
-    public function searchMember(Request $request)
-    {
-        $projects = Project::all();
-        $search = trim($request->input('search'));;
-
-        // Check if the search value is empty
-        if (empty($search)) {
-            $members = Member::members()->paginate(5); // Return the initial state without filtering
-        } else {
-            $members = Member::members()
-                            ->where(function ($query) use ($search) {
-                                $query->where('firstName', 'like', '%' . $search . '%')
-                                ->orWhere('lastName', 'like', '%' . $search . '%');})
-                            ->paginate(5);
-        }
-
-        if ($request->ajax()) {
-            return response()->json([
-            'table' => view('member.table', compact('members', 'projects'))->render(),
-            'pagination' => $members->links()->toHtml(), // Get pagination links
-            ]);
-        }
-    }
 
 
     public function create()
@@ -116,4 +97,60 @@ class MemberController extends Controller
         return redirect()->route('member.index')->with('success', 'member supprimé avec succès');
 
     }
+
+
+    public function export()
+    {
+        $members = Member::members()->select('firstName', 'lastName', 'email')->get();
+
+        return Excel::download(new MemberExport($members),'members.xlsx');
+    }
+
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv|max:2048',
+        ]);
+
+        try {
+            Excel::import(new MemberImport, $request->file('file'));
+        } catch (\Error $e) {
+            return redirect()->route('member.index')->withError('Quelque chose s\'est mal passé, vérifiez votre fichier');
+        }
+        return redirect()->route('member.index')->with('success', 'Membres a ajouté avec succès');
+    }
+
+
+
+
+
+    public function searchMember(Request $request)
+    {
+        $projects = Project::all();
+        $search = trim($request->input('search'));;
+
+        // Check if the search value is empty
+        if (empty($search)) {
+            $members = Member::members()->paginate(5); // Return the initial state without filtering
+        } else {
+            $members = Member::members()
+                            ->where(function ($query) use ($search) {
+                                $query->where('firstName', 'like', '%' . $search . '%')
+                                ->orWhere('lastName', 'like', '%' . $search . '%');})
+                            ->paginate(5);
+        }
+
+        if ($request->ajax()) {
+            return response()->json([
+            'table' => view('member.table', compact('members', 'projects'))->render(),
+            'pagination' => $members->links()->toHtml(), // Get pagination links
+            ]);
+        }
+    }
+
+
+
+
+
 }

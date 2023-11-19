@@ -65,6 +65,8 @@ Route::middleware('auth')->group(function () {
             Route::get('/edit/{member}', [MemberController::class, 'edit'])->name("member.edit");
             Route::PUT('/{member}', [MemberController::class, 'update'])->name("member.update");
             Route::DELETE('/{member}', [MemberController::class, 'destroy'])->name("member.destroy");
+            Route::get('export/', [MemberController::class, 'export'])->name('member.export');
+            Route::post('import/', [MemberController::class, 'import'])->name('member.import');
         });
     });
     Route::post('logout', [LoginUserController::class, 'destroy'])->name('logout');

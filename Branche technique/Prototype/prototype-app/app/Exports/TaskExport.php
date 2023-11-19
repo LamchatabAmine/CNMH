@@ -30,12 +30,12 @@ class TaskExport implements FromCollection, WithHeadings, ShouldAutoSize, WithSt
 
     public function collection()
     {
-        return $this->data->map(function ($project) {
+        return $this->data->map(function ($task) {
             return [
-                'Nom' => $project->name,
-                'Description' => $project->description,
-                'Date debut' => $project->startDate,
-                'Date fin' => $project->endDate,
+                'Nom' => $task->name,
+                'Description' => $task->description,
+                'Date debut' => $task->startDate,
+                'Date fin' => $task->endDate,
             ];
         });
     }
