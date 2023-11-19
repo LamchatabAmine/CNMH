@@ -43,9 +43,8 @@ Route::middleware('auth')->group(function () {
      // Task routes nested under project
     Route::prefix('tache')->group(function () {
         // Route::resource('/', TaskController::class);
-        Route::get('/{project?}', [TaskController::class, 'index'])->name("task.index");
-        Route::get('/{projectId}', [TaskController::class, 'getTasksByProject'])->name('tasks.by.project');
-
+        Route::get('/{project}', [TaskController::class, 'index'])->name("task.index");
+        Route::get('/{project}/search', [TaskController::class, 'searchTask'])->name("search.task");
         Route::middleware(['auth', 'IsLeader'])->group(function () {
             Route::get('/{project}/create', [TaskController::class, 'create'])->name("task.create");
             Route::post('/{project}/create', [TaskController::class, 'store'])->name("task.store");
@@ -58,6 +57,7 @@ Route::middleware('auth')->group(function () {
         Route::prefix('member')->group(function () {
             // Route::resource('/', MemberController::class);
             Route::get('/', [MemberController::class, 'index'])->name("member.index");
+            Route::get('/search', [MemberController::class, 'searchMember'])->name("search.member");
             Route::get('/create', [MemberController::class, 'create'])->name("member.create");
             Route::post('/create', [MemberController::class, 'store'])->name("member.store");
             Route::get('/edit/{member}', [MemberController::class, 'edit'])->name("member.edit");

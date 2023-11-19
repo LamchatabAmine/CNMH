@@ -1,7 +1,7 @@
 <table class="table table-striped text-nowrap">
     <thead>
         <tr>
-            <th>#</th>
+            {{-- <th>#</th> --}}
             <th>Nom</th>
             <th>Prenom</th>
             <th>email</th>
@@ -12,7 +12,7 @@
     <tbody>
         @forelse ($members as $item => $member)
             <tr>
-                <td>1</td>
+                {{-- <td>1</td> --}}
                 <td>{{ $member->firstName }}</td>
                 <td>
                     {{ $member->lastName }}
@@ -26,7 +26,8 @@
                     <form method="POST" action="{{ route('member.destroy', $member) }}" style="display: inline-block;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" onclick="confirm('vous êtes sûr')" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></button>
+                        <button type="submit" onclick="confirm('vous êtes sûr')" class="btn btn-sm btn-danger"><i
+                                class="fa-solid fa-trash"></i></button>
                     </form>
                 </td>
             </tr>

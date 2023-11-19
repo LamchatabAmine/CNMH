@@ -30,21 +30,24 @@
                         <div class="card-header col-md-12">
                             <div class="d-flex justify-content-end align-items-center  p-0">
                                 <div class="form-group input-group-sm mb-0 col-md-2">
-                                    <select id="filterTasks" class="form-control">
-                                        @if ($projects)
-                                            @foreach ($projects as $projectName)
-                                                <option value={{ $projectName->id }}
-                                                    @if ($projectName->name == $project->name) @selected(true) @endif>
-                                                    {{ $projectName->name }}</option>
-                                            @endforeach
-                                        @else
-                                            <option>Empthy</option>
-                                        @endif
-                                    </select>
+                                    <form method="GET" action="{{ route('task.index', ['project' => $project->id]) }}">
+                                        <select id="project" class="form-control" onchange="updateUrl()">
+                                            @if ($projects)
+                                                @foreach ($projects as $projectName)
+                                                    <option value="{{ $projectName->id }}"
+                                                        {{ $projectName->id == request('project_id', $project->id) ? 'selected' : '' }}>
+                                                        {{ $projectName->name }}
+                                                    </option>
+                                                @endforeach
+                                            @else
+                                                <option>Empty</option>
+                                            @endif
+                                        </select>
+                                    </form>
                                 </div>
                                 <div class="input-group input-group-sm col-md-3 p-0">
-                                    <input type="text" name="table_search" class="form-control float-right"
-                                        placeholder="Search">
+                                    <input id="searchTask" type="text" name="table_search"
+                                        class="form-control float-right" placeholder="Search">
                                     <div class="input-group-append">
                                         <button type="submit" class="btn btn-default">
                                             <i class="fas fa-search"></i>
@@ -53,7 +56,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body table-responsive p-0 ">
+                        <div class="card-body table-responsive p-0 table-tasks">
                             @include('project.task.table')
                         </div>
                         <div class="d-flex justify-content-between align-items-center p-2">

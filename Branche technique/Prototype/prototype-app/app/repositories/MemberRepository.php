@@ -7,7 +7,7 @@ use App\Models\Member;
 class MemberRepository implements ManageMemberRepository {
     public function getAll() {
         // return Member::orderBy('startDate', 'asc')->paginate(5);
-        return  Member::members()->paginate(2);
+        return  Member::members()->paginate(5);
     }
 
     public function create(array $data) {

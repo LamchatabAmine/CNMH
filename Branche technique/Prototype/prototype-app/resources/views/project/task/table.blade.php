@@ -1,7 +1,7 @@
 <table class="table table-striped text-nowrap ">
     <thead>
         <tr>
-            <th>#</th>
+            {{-- <th>#</th> --}}
             <th>Nom</th>
             <th>Description</th>
             <th>Date debut</th>
@@ -12,7 +12,7 @@
     <tbody>
         @forelse ($tasks as $index => $task)
             <tr>
-                <td>{{ $index + 1 }}</td>
+                {{-- <td>{{ $index + 1 }}</td> --}}
                 <td>{{ $task->name }}</td>
                 <td>
                     {{ $task->description }}

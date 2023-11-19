@@ -33,6 +33,12 @@
         function submitForm() {
             document.getElementById("importForm").submit();
         }
+
+        function updateUrl() {
+            var selectedProjectId = document.getElementById('project').value;
+            var url = '{{ url('tache') }}/' + selectedProjectId;
+            window.location.href = url;
+        }
     </script>
 
 
@@ -60,15 +66,20 @@
                 });
             });
 
-            $('#filterTasks').on('change', function(e) {
-                let projectId = $(this).val();
 
+            $(document).on('keyup', '#searchTask', function(e) {
+                e.preventDefault();
+                let project = document.getElementById('project').value;
+                let search = $(this).val();
+                console.log(search);
+                // let page = $('.pagination').find('.active').text(); // Get the current active page
                 $.ajax({
-                    url: "{{ route('tasks.by.project', ['projectId' => ':projectId']) }}".replace(
-                        ':projectId', projectId),
+                    url: '{{ route('search.task', ['project' => ':project']) }}'.replace(':project',
+                        project),
                     method: 'GET',
                     data: {
-                        'project': projectId
+                        search: search,
+                        project: project,
                     },
                     success: function(data) {
                         $('.table-tasks').html(data.table);
@@ -82,13 +93,26 @@
 
 
 
-
-
-
-
-
-
-
+            $(document).on('keyup', '#searchMember', function(e) {
+                e.preventDefault();
+                let search = $(this).val();
+                console.log(search);
+                // let page = $('.pagination').find('.active').text(); // Get the current active page
+                $.ajax({
+                    url: "{{ route('search.member') }}",
+                    method: 'GET',
+                    data: {
+                        search: search,
+                    },
+                    success: function(data) {
+                        $('.table-member').html(data.table);
+                        $('.pagination').html(data.pagination);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
 
 
 

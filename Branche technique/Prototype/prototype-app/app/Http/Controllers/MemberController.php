@@ -26,6 +26,31 @@ class MemberController extends Controller
 
 
 
+    public function searchMember(Request $request)
+    {
+        $projects = Project::all();
+        $search = trim($request->input('search'));;
+
+        // Check if the search value is empty
+        if (empty($search)) {
+            $members = Member::members()->paginate(5); // Return the initial state without filtering
+        } else {
+            $members = Member::members()
+                            ->where(function ($query) use ($search) {
+                                $query->where('firstName', 'like', '%' . $search . '%')
+                                ->orWhere('lastName', 'like', '%' . $search . '%');})
+                            ->paginate(5);
+        }
+
+        if ($request->ajax()) {
+            return response()->json([
+            'table' => view('member.table', compact('members', 'projects'))->render(),
+            'pagination' => $members->links()->toHtml(), // Get pagination links
+            ]);
+        }
+    }
+
+
     public function create()
     {
         return view('member.create');
