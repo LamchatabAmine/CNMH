@@ -52,11 +52,13 @@
                 // let page = $('.pagination').find('.active').text(); // Get the current active page
                 $.ajax({
                     url: "{{ route('search.project') }}",
+                    // url: "project/?page=1" +  '&searchValue' + searchValue,
                     method: 'GET',
                     data: {
                         searchValue: searchValue
                     },
                     success: function(data) {
+                        console.log(data)
                         $('.table-data').html(data.table);
                         $('.pagination').html(data.pagination);
                     },
