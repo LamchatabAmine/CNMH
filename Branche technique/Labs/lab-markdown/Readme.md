@@ -4,7 +4,7 @@
 
 ## Travail a faire
 
-Create a simple Webpage
+exercice : Créer une page markdown
 
 * créez un fichier Readme.md
 * Utilisez la syntax markdown pour créer une page markdown  avec les éléments suivant :
