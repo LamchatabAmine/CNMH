@@ -55,23 +55,23 @@ Développeur web
 ## FORMATIONS
 
 **SOLICODE - Centre Solidaire Digital OFPPT** 2022-2023.
-    Certificat en développement web
+    Certificat en développement web.
 
 **SIMPLON.CO-**  2022-2023.
-    Certificat en développement web
+    Certificat en développement web.
   
 **Lyceé ibn zohr-**  2021-2022.
-    baccalauréat en sciences physiques et chimiques
+    baccalauréat en sciences physiques et chimiques.
 
 
 
 ## CONTACT
 
-+212 643583885.
-Tanger, tanja-balia rue 86.
-alamchatab@gmail.com.
-[github.com/LamchatabAmine](https://github.com/LamchatabAmine).
-[linkedin.com/in/amine-lamchatab](https://www.linkedin.com/in/amine-lamchatab-b383a1237/).
+- +212 643583885
+- Tanger, tanja-balia rue 86
+- alamchatab@gmail.com
+- [github.com/LamchatabAmine](https://github.com/LamchatabAmine)
+- [linkedin.com/in/amine-lamchatab](https://www.linkedin.com/in/amine-lamchatab-b383a1237/)
 
 ## LANGUES
 * Arabe (Maternelle)
