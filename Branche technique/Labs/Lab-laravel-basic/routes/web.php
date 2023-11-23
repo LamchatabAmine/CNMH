@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\ProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,7 +14,23 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+// Resourceful routes for projects
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
+
+
+Route::resource('project', ProjectController::class);
+
+// Route::resource('task', TaskController::class);
+Route::get('tache/{project}', [TaskController::class, 'index'])->name("task.index");
+Route::get('tache/{project}/create', [TaskController::class, 'create'])->name("task.create");
+Route::post('tache/{project}/create', [TaskController::class, 'store'])->name("task.store");
+Route::get('tache/{project}/edit/{task}', [TaskController::class, 'edit'])->name("task.edit");
+Route::PUT('tache/{project}/{task}', [TaskController::class, 'update'])->name("task.update");
+Route::DELETE('tache/{project}/{task}', [TaskController::class, 'destroy'])->name("task.destroy");
+
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Auth::routes();
