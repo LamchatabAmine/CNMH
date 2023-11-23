@@ -46,31 +46,32 @@ Développeur web
     Développement d'un système de classement des entreprises basé sur les avis clients. J'ai
     également assuré une conception adaptative pour une expérience utilisateur optimale sur
     différents appareils et tailles d'écran.
-**Utilisant:** `HTML/CSS`,`Bootstrap`,`JS`,`jQuery `,`LARAVEL`,`SQL`
+
+**Utilisant:** `HTML/CSS`,`Bootstrap`,`JS`,`jQuery `,`LARAVEL`,`SQL`.
 
 
 
 
 ## FORMATIONS
 
-**SOLICODE - Centre Solidaire Digital OFPPT** 2022-2023
+**SOLICODE - Centre Solidaire Digital OFPPT** 2022-2023.
     Certificat en développement web
 
-**SIMPLON.CO-**  2022-2023
+**SIMPLON.CO-**  2022-2023.
     Certificat en développement web
   
-**Lyceé ibn zohr-**  2021-2022
+**Lyceé ibn zohr-**  2021-2022.
     baccalauréat en sciences physiques et chimiques
 
 
 
 ## CONTACT
 
-+212 643583885
-Tanger, tanja-balia rue 86
-alamchatab@gmail.com
-[github.com/LamchatabAmine](https://github.com/LamchatabAmine)
-[linkedin.com/in/amine-lamchatab](https://www.linkedin.com/in/amine-lamchatab-b383a1237/)
++212 643583885.
+Tanger, tanja-balia rue 86.
+alamchatab@gmail.com.
+[github.com/LamchatabAmine](https://github.com/LamchatabAmine).
+[linkedin.com/in/amine-lamchatab](https://www.linkedin.com/in/amine-lamchatab-b383a1237/).
 
 ## LANGUES
 * Arabe (Maternelle)
