@@ -13,9 +13,9 @@ class TaskController extends Controller
      */
     public function index(Request $request, Project $project)
     {
-        $projects = Project::paginate(3);
+        $projects = Project::all();
         $tasks = Task::where('project_id',$project->id)->paginate(3);
-        return view('project.task.index', compact('tasks', 'project', 'projects'));
+        return view('task.index', compact('tasks', 'project', 'projects'));
     }
 
     /**
@@ -23,7 +23,7 @@ class TaskController extends Controller
      */
     public function create(Project $project)
     {
-        return view('project.task.create', compact('project'));
+        return view('task.create', compact('project'));
     }
 
     /**
@@ -47,7 +47,7 @@ class TaskController extends Controller
      */
     public function edit(Project $project, Task $task)
     {
-        return view('project.task.edit', ['task' => $task, 'project' => $project]);
+        return view('task.edit', ['task' => $task, 'project' => $project]);
     }
 
 
@@ -76,4 +76,30 @@ class TaskController extends Controller
 
         return redirect()->route('task.index', ['project' => $project])->with('success', 'tache supprimé avec succès');
     }
+
+
+    public function searchTask(Request $request, $project)
+    {
+        $search = $request->input('search');
+        $project = Project::findOrFail($project);
+
+        // Check if the search value is empty
+        if (empty($search)) {
+            $tasks = Task::where('project_id',$project->id)->paginate(3);
+        } else {
+            $tasks = Task::where('project_id', $project->id)->where('name', 'like', '%' . $search . '%')->paginate(3);
+        }
+
+        // Controller code
+        if ($request->ajax()) {
+            return response()->json([
+                'table' => view('task.table', compact('tasks', 'project'))->render(),
+                'pagination' => $tasks->links()->toHtml(),
+            ]);
+        }
+
+    }
+
+
+
 }

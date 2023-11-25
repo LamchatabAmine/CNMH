@@ -54,7 +54,7 @@
                             </div>
                         </div>
                         <div class="card-body table-responsive p-0 table-tasks">
-                            @include('project.task.table')
+                            @include('task.table')
                         </div>
                         <div class="d-flex justify-content-end align-items-center p-2">
                             <div class="">

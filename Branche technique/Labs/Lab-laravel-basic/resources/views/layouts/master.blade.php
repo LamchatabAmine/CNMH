@@ -43,31 +43,8 @@
         }
     </script>
 
-    {{-- <script>
+    <script>
         $(document).ready(function() {
-            $(document).on('keyup', '#searchProject', function(e) {
-                e.preventDefault();
-                let searchValue = $(this).val();
-                // let page = $('.pagination').find('.active').text(); // Get the current active page
-                $.ajax({
-                    url: "{{ route('search.project') }}",
-                    // url: "project/?page=1" +  '&searchValue' + searchValue,
-                    method: 'GET',
-                    data: {
-                        searchValue: searchValue
-                    },
-                    success: function(data) {
-                        console.log(data)
-                        $('.table-data').html(data.table);
-                        $('.pagination').html(data.pagination);
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
-                    }
-                });
-            });
-
-
             $(document).on('keyup', '#searchTask', function(e) {
                 e.preventDefault();
                 let project = document.getElementById('project').value;
@@ -91,34 +68,8 @@
                     }
                 });
             });
-
-
-
-            $(document).on('keyup', '#searchMember', function(e) {
-                e.preventDefault();
-                let search = $(this).val();
-                console.log(search);
-                // let page = $('.pagination').find('.active').text(); // Get the current active page
-                $.ajax({
-                    url: "{{ route('search.member') }}",
-                    method: 'GET',
-                    data: {
-                        search: search,
-                    },
-                    success: function(data) {
-                        $('.table-member').html(data.table);
-                        $('.pagination').html(data.pagination);
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
-                    }
-                });
-            });
-
-
-
         });
-    </script> --}}
+    </script>
 
 
 
