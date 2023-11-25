@@ -3,12 +3,12 @@
     <body class="hold-transition register-page">
         <div class="register-box">
             <div class="register-logo">
-                <a href="{{ url('/home') }}"><b>{{ config('app.name') }}</b></a>
+                <a href="{{ url('/home') }}"><b>Gestion Taches</b></a>
             </div>
 
             <div class="card">
                 <div class="card-body register-card-body">
-                    <p class="login-box-msg">Register a new membership</p>
+                    <p class="login-box-msg">Enregistrer une nouvelle membre</p>
 
                     <form method="post" action="{{ route('register') }}">
                         @csrf
@@ -16,7 +16,7 @@
                         <div class="input-group mb-3">
                             <input type="text" name="name"
                                 class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}"
-                                placeholder="Full name">
+                                placeholder="Nom">
                             <div class="input-group-append">
                                 <div class="input-group-text"><span class="fas fa-user"></span></div>
                             </div>
@@ -55,7 +55,7 @@
 
                         <div class="input-group mb-3">
                             <input type="password" name="password_confirmation" class="form-control"
-                                placeholder="Retype password">
+                                placeholder="Confirmer password">
                             <div class="input-group-append">
                                 <div class="input-group-text"><span class="fas fa-lock"></span></div>
                             </div>

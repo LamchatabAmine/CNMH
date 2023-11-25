@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+
 // use App\Providers\RouteServiceProvider;
 // use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -10,7 +13,36 @@ class LoginController extends Controller
 {
 
     public function index(){
-        view('auth.login');
+        return view('auth.login');
+    }
+
+
+    public function login(Request $request)
+    {
+
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            // Authentication passed...
+            // dd('Successfully authenticated');
+            return redirect()->route('task.index');
+        }
+
+        return back()->withErrors(['email' => 'Invalid credentials'])->withInput();
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login');
     }
 
     // use AuthenticatesUsers;

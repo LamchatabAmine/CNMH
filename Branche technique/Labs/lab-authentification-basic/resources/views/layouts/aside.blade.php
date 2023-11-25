@@ -4,7 +4,7 @@
     <a href="#" class="brand-link">
         <img src="https://assets.infyom.com/logo/blue_logo_150x150.png" alt="AdminLTE Logo"
             class="brand-image img-circle elevation-3">
-        <span class="brand-text font-weight-light text-center">{{ __('Solicoders') }}</span>
+        <span class="brand-text font-weight-light text-center">{{ __('Gestion Taches') }}</span>
     </a>
     <!-- Sidebar -->
     <div class="sidebar">
