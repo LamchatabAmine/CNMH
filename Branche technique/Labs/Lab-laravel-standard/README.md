@@ -12,3 +12,20 @@ Le projet en cours consiste à développer une application CRUD (Create, Read, U
 * Pattern Repository
 * Filtrer par projet
 
+## Commands used before running the application
+
+```shell
+npm install
+```
+
+```shell
+composer install
+```
+
+```shell
+php artisan migrate:fresh
+```
+
+```shell
+php artisan db:seed
+```
