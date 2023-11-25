@@ -5,30 +5,35 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use App\Repositories\TasksRepository;
 
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(Request $request, Project $project)
-    {
-        $projects = Project::all();
-        $tasks = Task::where('project_id',$project->id)->paginate(3);
-        return view('task.index', compact('tasks', 'project', 'projects'));
+
+    protected $tasksRepository;
+    // protected $projectRepository;
+
+    public function __construct(TasksRepository $tasksRepository){
+        $this->tasksRepository = $tasksRepository;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    public function index(Project $project = null)
+    {
+        $projects = Project::all();
+        // Use the provided $project or get the first project as default
+        $project = $project ?? Project::orderBy('id')->first();
+
+        $tasksQuery = ['project_id' => $project->id];
+        $tasks = $this->tasksRepository->index($tasksQuery);
+        return view('task.index', compact('tasks','project','projects'));
+    }
+
+
     public function create(Project $project)
     {
         return view('task.create', compact('project'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request, Project $project)
     {
         $data = $request->validate([
@@ -37,23 +42,20 @@ class TaskController extends Controller
         ]);
         $data['project_id'] = $project->id;
 
-        Task::create($data);
+        $this->tasksRepository->store($data);
 
         return redirect()->route('task.index', ['project' => $project])->with('success', 'Tache créé avec succès');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(Project $project, Task $task)
     {
+        $task = $this->tasksRepository->edit($task);
         return view('task.edit', ['task' => $task, 'project' => $project]);
     }
 
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, Project $project,Task $task)
     {
         $data = $request->validate([
@@ -62,17 +64,15 @@ class TaskController extends Controller
         ]);
         $data['project_id'] = $project->id;
 
-        $task->update($data);
+        $task = $this->tasksRepository->update($data , $task);
 
         return redirect()->route('task.index', ['project' => $project])->with('success', 'Tache updated avec succès');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(Project $project,Task $task)
     {
-        $task->delete();
+        $this->tasksRepository->destroy($task);
 
         return redirect()->route('task.index', ['project' => $project])->with('success', 'tache supprimé avec succès');
     }
@@ -84,10 +84,15 @@ class TaskController extends Controller
         $project = Project::findOrFail($project);
 
         // Check if the search value is empty
+        // $tasksQuery = ['project_id' => $project->id];
+        // $tasksQuery = ['name' => $search];
+
         if (empty($search)) {
-            $tasks = Task::where('project_id',$project->id)->paginate(3);
+            $tasks = $this->tasksRepository->index(['project_id' => $project->id]);
+            // $tasks = Task::where('project_id',$project->id)->paginate(3);
         } else {
-            $tasks = Task::where('project_id', $project->id)->where('name', 'like', '%' . $search . '%')->paginate(3);
+            $tasks =  $this->tasksRepository->index(['project_id' => $project->id, 'search' => $search]);
+            // $tasks = Task::where('project_id', $project->id)->where('name', 'like', '%' . $search . '%')->paginate(3);
         }
 
         // Controller code

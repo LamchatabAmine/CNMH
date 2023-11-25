@@ -4,8 +4,11 @@
 
 Le projet en cours consiste à développer une application CRUD (Create, Read, Update, Delete) basée sur le framework Laravel, mettant en œuvre la gestion des projets et de leurs tâches associées. 
 
+* compléter le travail sur `lab laravel basic`
 * Créer le CRUD des tâches
 * La recherche avec AJAX
 * Avec la pagination
 * Ajouter la base de données incluant la table des projets dans les seeders
+* Pattern Repository
+* Filtrer par projet
 
