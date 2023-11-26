@@ -9,7 +9,8 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="float-sm-right">
-                        @can('create', \App\Models\Task::class)
+
+                        @can('create-Task')
                             <a href="{{ route('task.create', $project) }}" class="btn btn-sm btn-primary">Ajouter Tache</a>
                         @endcan
                     </div>

@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
 use App\Models\Task;
 use App\Policies\TaskPolicy;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -15,7 +15,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        Task::class => TaskPolicy::class,
+        // Task::class => TaskPolicy::class,
     ];
 
     /**
@@ -23,6 +23,23 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Gate::define('create-Task', function ($user) {
+            return $user->role == 'project-leader';
+        });
+        Gate::define('store-Task', function ($user) {
+            return $user->role == 'project-leader';
+        });
+        Gate::define('edit-Task', function ($user) {
+            return $user->role == 'project-leader';
+        });
+        Gate::define('update-Task', function ($user) {
+            return $user->role == 'project-leader';
+        });
+        Gate::define('destroy-Task', function ($user) {
+            return $user->role == 'project-leader';
+        });
+        Gate::define('index-Task', function ($user) {
+            return $user ;
+        });
     }
 }

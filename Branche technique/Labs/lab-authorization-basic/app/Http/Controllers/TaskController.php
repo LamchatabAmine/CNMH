@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Gate;
+
 use
     App\Models\Task;
     use App\Models\Project;
@@ -33,13 +35,13 @@ class TaskController extends Controller
 
     public function create(Project $project)
     {
-        $this->authorize('create', Task::class);
+        $this->authorize('create-Task');
         return view('task.create', compact('project'));
     }
 
     public function store(Request $request, Project $project)
     {
-        $this->authorize('store', Task::class);
+        $this->authorize('store-Task');
         $data = $request->validate([
             'name' => 'required',
             'description' => 'required',
@@ -54,7 +56,7 @@ class TaskController extends Controller
 
     public function edit(Project $project, Task $task)
     {
-        $this->authorize('edit', $task);
+        $this->authorize('edit-Task');
         $task = $this->tasksRepository->edit($task);
         return view('task.edit', ['task' => $task, 'project' => $project]);
     }
@@ -63,7 +65,7 @@ class TaskController extends Controller
 
     public function update(Request $request, Project $project,Task $task)
     {
-        $this->authorize('update', $task);
+        $this->authorize('update-Task');
         $data = $request->validate([
             'name' => 'required',
             'description' => 'required',
@@ -78,7 +80,7 @@ class TaskController extends Controller
 
     public function destroy(Project $project,Task $task)
     {
-        $this->authorize('destroy', $task);
+        $this->authorize('destroy-Task');
         $this->tasksRepository->destroy($task);
 
         return redirect()->route('task.index', ['project' => $project])->with('success', 'tache supprimé avec succès');
