@@ -13,19 +13,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('projects')->insert([
-            [
-                'name' => 'Portfolio',
-                'description' => 'Développement d\'un site web mettant en valeur nos compétences',
-            ],
-            [
-                'name' => 'Arbre des compétences',
-                'description' => 'Création d\'une application web pour l\'évaluation des compétences.',
-            ],
-            [
-                'name' => '  CNMH',
-                'description' => 'Création d\'une application web pour laa gestion des patients de centre cnmh.',
-            ]
+        $this->call([
+            UserSeeder::class,
+            ProjectSeeder::class,
+            TaskSeeder::class,
         ]);
     }
 }
