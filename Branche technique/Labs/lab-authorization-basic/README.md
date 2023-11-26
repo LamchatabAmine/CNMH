@@ -1,8 +1,9 @@
-# Lab authentification basic
+# Lab authorisation basic
 
 ## Travail à faire
 
 * Ajouter l'authentification pour `lab laravel standard`
+* Additionner l'autorisation pour ``Lab-Laravel-crud-basic`` en utilisant uniquement `gate` sans recourir aux `policies`.
 
 
 ## Commands used before running the application
