@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Task;
-use App\Models\Project;
-use Illuminate\Http\Request;
-use App\Repositories\TasksRepository;
+use
+    App\Models\Task;
+    use App\Models\Project;
+    use Illuminate\Http\Request;
+    use App\Repositories\TasksRepository;
 
+
+    
 class TaskController extends Controller
 {
 

@@ -1,11 +1,12 @@
 <?php
 
-// use App\Models\Project;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TaskController;
-use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
+
+use
+    Illuminate\Support\Facades\Route;
+    use App\Http\Controllers\TaskController;
+    use App\Http\Controllers\ProjectController;
+    use App\Http\Controllers\Auth\LoginController;
+    use App\Http\Controllers\Auth\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,6 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/login', [LoginController::class, 'login']);
     Route::get('/register', [RegisterController::class, 'index'])->name('register');
     Route::post('/register', [RegisterController::class, 'create']);
-    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 // Route::resource('project', ProjectController::class);
 
@@ -37,6 +37,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('tache/{project}/{task}', [TaskController::class, 'update'])->name("task.update");
     Route::delete('tache/{project}/{task}', [TaskController::class, 'destroy'])->name("task.destroy");
     Route::get('tache/{project}/search', [TaskController::class, 'searchTask'])->name("search.task");
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 
 
