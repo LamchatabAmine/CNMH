@@ -74,8 +74,6 @@ class RegisterController extends Controller
 
         Auth::login($user, true);
 
-        // dd('here');
-
         return redirect()->route('task.index');
     }
 }

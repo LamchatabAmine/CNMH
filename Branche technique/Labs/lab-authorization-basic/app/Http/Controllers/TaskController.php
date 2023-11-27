@@ -4,32 +4,34 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Gate;
 
-use
-    App\Models\Task;
-    use App\Models\Project;
-    use Illuminate\Http\Request;
-    use App\Repositories\TasksRepository;
+use App\Models\Task;
+use App\Models\Project;
+use Illuminate\Http\Request;
+// use App\Repositories\TasksRepository;
 
 
 
 class TaskController extends Controller
 {
 
-    protected $tasksRepository;
+    // protected $tasksRepository;
 
-    public function __construct(TasksRepository $tasksRepository){
-        $this->tasksRepository = $tasksRepository;
-    }
+    // public function __construct(TasksRepository $tasksRepository){
+    //     $this->tasksRepository = $tasksRepository;
+    // }
 
     public function index(Project $project = null)
     {
         $projects = Project::all();
+
+
         // Use the provided $project or get the first project as default
         $project = $project ?? Project::orderBy('id')->first();
+        // dd($project);
 
-        $tasksQuery = ['project_id' => $project->id];
-        $tasks = $this->tasksRepository->index($tasksQuery);
-        return view('task.index', compact('tasks','project','projects'));
+        $tasks = Task::where('project_id',$project->id)->paginate(3);
+
+        return view('task.index', compact('tasks', 'project', 'projects'));
     }
 
 
@@ -48,7 +50,8 @@ class TaskController extends Controller
         ]);
         $data['project_id'] = $project->id;
 
-        $this->tasksRepository->store($data);
+        Task::create($data);
+        // $this->tasksRepository->store($data);
 
         return redirect()->route('task.index', ['project' => $project])->with('success', 'Tache créé avec succès');
     }
@@ -57,7 +60,7 @@ class TaskController extends Controller
     public function edit(Project $project, Task $task)
     {
         $this->authorize('edit-Task');
-        $task = $this->tasksRepository->edit($task);
+        // $task = $this->tasksRepository->edit($task);
         return view('task.edit', ['task' => $task, 'project' => $project]);
     }
 
@@ -72,7 +75,8 @@ class TaskController extends Controller
         ]);
         $data['project_id'] = $project->id;
 
-        $task = $this->tasksRepository->update($data , $task);
+        $task->update($data);
+        // $task = $this->tasksRepository->update($data , $task);
 
         return redirect()->route('task.index', ['project' => $project])->with('success', 'Tache updated avec succès');
     }
@@ -81,7 +85,8 @@ class TaskController extends Controller
     public function destroy(Project $project,Task $task)
     {
         $this->authorize('destroy-Task');
-        $this->tasksRepository->destroy($task);
+        $task->delete();
+        // $this->tasksRepository->destroy($task);
 
         return redirect()->route('task.index', ['project' => $project])->with('success', 'tache supprimé avec succès');
     }
@@ -93,9 +98,9 @@ class TaskController extends Controller
         $project = Project::findOrFail($project);
 
         if (empty($search)) {
-            $tasks = $this->tasksRepository->index(['project_id' => $project->id]);
+            $tasks = Task::where('project_id',$project->id)->paginate(3);
         } else {
-            $tasks =  $this->tasksRepository->index(['project_id' => $project->id, 'search' => $search]);
+            $tasks = Task::where('project_id', $project->id)->where('name', 'like', '%' . $search . '%')->paginate(3);
         }
 
         if ($request->ajax()) {
@@ -105,7 +110,5 @@ class TaskController extends Controller
             ]);
         }
     }
-
-
 
 }

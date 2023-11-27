@@ -38,7 +38,7 @@
 
         function updateUrl() {
             var selectedProjectId = document.getElementById('project').value;
-            var url = '{{ url('tache') }}/' + selectedProjectId;
+            var url = '/' + selectedProjectId;
             window.location.href = url;
         }
     </script>

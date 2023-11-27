@@ -22,7 +22,6 @@
                     </p>
                 </li>
                 <li class="user-footer">
-                    {{-- <a href="#" class="btn btn-default btn-flat">Profile</a> --}}
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="btn btn-default btn-flat float-right">Log out</button>
