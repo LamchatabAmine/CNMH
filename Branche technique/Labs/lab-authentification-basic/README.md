@@ -2,7 +2,7 @@
 
 ## Travail à faire
 
-* Ajouter l'authentification pour `lab laravel standard`
+* Ajouter l'authentification pour `lab crud basic`
 
 
 ## Commands used before running the application

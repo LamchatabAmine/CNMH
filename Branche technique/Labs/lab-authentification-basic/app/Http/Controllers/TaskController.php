@@ -2,32 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use
-    App\Models\Task;
-    use App\Models\Project;
-    use Illuminate\Http\Request;
-    use App\Repositories\TasksRepository;
+use App\Models\Task;
+use App\Models\Project;
+use Illuminate\Http\Request;
 
 
-    
+
 class TaskController extends Controller
 {
-
-    protected $tasksRepository;
-    // protected $projectRepository;
-
-    public function __construct(TasksRepository $tasksRepository){
-        $this->tasksRepository = $tasksRepository;
-    }
 
     public function index(Project $project = null)
     {
         $projects = Project::all();
-        // Use the provided $project or get the first project as default
+
         $project = $project ?? Project::orderBy('id')->first();
 
-        $tasksQuery = ['project_id' => $project->id];
-        $tasks = $this->tasksRepository->index($tasksQuery);
+        $tasks = Task::where('project_id',$project->id)->paginate(3);
+
         return view('task.index', compact('tasks','project','projects'));
     }
 
@@ -45,7 +36,8 @@ class TaskController extends Controller
         ]);
         $data['project_id'] = $project->id;
 
-        $this->tasksRepository->store($data);
+        Task::create($data);
+
 
         return redirect()->route('task.index', ['project' => $project])->with('success', 'Tache créé avec succès');
     }
@@ -53,7 +45,7 @@ class TaskController extends Controller
 
     public function edit(Project $project, Task $task)
     {
-        $task = $this->tasksRepository->edit($task);
+
         return view('task.edit', ['task' => $task, 'project' => $project]);
     }
 
@@ -67,7 +59,8 @@ class TaskController extends Controller
         ]);
         $data['project_id'] = $project->id;
 
-        $task = $this->tasksRepository->update($data , $task);
+        $task->update($data);
+
 
         return redirect()->route('task.index', ['project' => $project])->with('success', 'Tache updated avec succès');
     }
@@ -75,7 +68,8 @@ class TaskController extends Controller
 
     public function destroy(Project $project,Task $task)
     {
-        $this->tasksRepository->destroy($task);
+
+        $task->delete();
 
         return redirect()->route('task.index', ['project' => $project])->with('success', 'tache supprimé avec succès');
     }
@@ -86,16 +80,12 @@ class TaskController extends Controller
         $search = $request->input('search');
         $project = Project::findOrFail($project);
 
-        // Check if the search value is empty
-        // $tasksQuery = ['project_id' => $project->id];
-        // $tasksQuery = ['name' => $search];
+
 
         if (empty($search)) {
-            $tasks = $this->tasksRepository->index(['project_id' => $project->id]);
-            // $tasks = Task::where('project_id',$project->id)->paginate(3);
+            $tasks = Task::where('project_id',$project->id)->paginate(3);
         } else {
-            $tasks =  $this->tasksRepository->index(['project_id' => $project->id, 'search' => $search]);
-            // $tasks = Task::where('project_id', $project->id)->where('name', 'like', '%' . $search . '%')->paginate(3);
+            $tasks = Task::where('project_id', $project->id)->where('name', 'like', '%' . $search . '%')->paginate(3);
         }
 
         // Controller code
@@ -105,9 +95,7 @@ class TaskController extends Controller
                 'pagination' => $tasks->links()->toHtml(),
             ]);
         }
-
     }
-
 
 
 }
