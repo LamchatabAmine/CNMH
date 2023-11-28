@@ -12,20 +12,25 @@ Le projet en cours consiste à développer une application CRUD (Create, Read, U
 * Pattern Repository
 * Filtrer par projet
 
-## Commands used before running the application
+## Flux de travail du processus
+
+1. Commencez par cloner Lab Crud Basic.
+
+2. Ajoutez le nom de la base de données dans `DB_DATABASE=` sur le fichier `.env`.
+
+3. Migrer les tables vers la base de données et remplissez la base de données
 
 ```shell
-npm install
+    php artisan migrate:fresh --seed
 ```
+4. Pour afficher la progression de votre projet localement, exécutez cette commande
 
 ```shell
-composer install
+    php artisan serve
 ```
 
-```shell
-php artisan migrate:fresh
-```
 
-```shell
-php artisan db:seed
-```
+## Références
+
+[https://github.com/labs-web/lab-crud-standard](https://github.com/labs-web/lab-crud-standard)
+[https://laravel.com/docs/10.x](https://laravel.com/docs/10.x)
