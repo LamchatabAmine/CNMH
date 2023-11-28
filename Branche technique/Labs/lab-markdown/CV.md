@@ -2,6 +2,8 @@
 # Amine Lamchatab
 Développeur web
 
+![avatar](./avatar.png)
+
 ## COMPÉTENCES
 
 **Compétences techniques**
