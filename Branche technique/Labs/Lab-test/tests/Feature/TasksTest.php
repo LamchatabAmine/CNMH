@@ -2,12 +2,14 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\Task;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TasksTest extends TestCase
 {
+    // use RefreshDatabase;
     /**
      * A basic feature test example.
      */
@@ -17,7 +19,7 @@ class TasksTest extends TestCase
         $response = $this->get('/tache/1');
         // dd($response->status());
         $response->assertStatus((200));
-
+        // $response->assertMethodNotAllowed();
         // $response->assertSee('Aucun tache trouvé.');
     }
 
@@ -27,7 +29,22 @@ class TasksTest extends TestCase
         $response = $this->get('/tache/1/create');
         // dd($response->status());
         $response->assertStatus((200));
-
         // $response->assertSee('Aucun tache trouvé.');
     }
+
+    // public function test_index_task(): void
+    // {
+    //     // Arrange
+    //     // $projects = Project::factory(4)->create();
+    //     $tasks = Task::factory(3)->create();
+
+    //     dd($tasks);
+    //     // Act
+    //     $response = $this->get('/tache/1');
+
+    //     // Assert
+    //     $response->assertStatus(200);
+    //     // $response->assertViewIs('tasks.index');
+    //     // $response->assertViewHas('tasks', $tasks);
+    // }
 }
