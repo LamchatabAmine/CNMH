@@ -3,22 +3,16 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use App\Models\Task;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TasksTest extends TestCase
 {
-    // use RefreshDatabase;
-    /**
-     * A basic feature test example.
-     */
+
     // public function test_the_application_returns_a_successful_response(): void
     // {
     //     // $this->withoutExceptionHandling();
     //     $response = $this->get('/tache/1');
-    //     // dd($response->status());
-    //     $response->assertStatus((200));
+    //     dd($response->status());
+    //     // $response->assertStatus((200));
     //     // $response->assertMethodNotAllowed();
     //     // $response->assertSee('Aucun tache trouvé.');
     // }
