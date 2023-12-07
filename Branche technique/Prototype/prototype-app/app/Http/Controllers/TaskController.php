@@ -16,7 +16,8 @@ class TaskController extends Controller
 
     protected $manageTaskRepository;
 
-    public function __construct(ManageTaskRepository $manageTaskRepository) {
+    public function __construct(ManageTaskRepository $manageTaskRepository)
+    {
         $this->manageTaskRepository = $manageTaskRepository;
     }
 
@@ -59,9 +60,9 @@ class TaskController extends Controller
     }
 
 
-    public function edit(Project $project , Task $task)
+    public function edit(Project $project, Task $task)
     {
-        return view('project.task.edit', compact('task','project'));
+        return view('project.task.edit', compact('task', 'project'));
     }
 
 
@@ -87,10 +88,10 @@ class TaskController extends Controller
     public function export(Project $project)
     {
         $tasks = Task::select('name', 'description', 'startDate', 'endDate')
-                ->where('project_id', $project->id)
-                ->get();
+            ->where('project_id', $project->id)
+            ->get();
         // $tasks = Task::select('name', 'description', 'startDate', 'endDate')->get();
-        return Excel::download(new TaskExport($tasks),'Taches.xlsx');
+        return Excel::download(new TaskExport($tasks), 'Taches.xlsx');
     }
 
 
@@ -112,7 +113,7 @@ class TaskController extends Controller
 
 
 
-    public function searchTask(Request $request, $project)
+    public function search(Request $request, $project)
     {
         $search = $request->input('search');
         $project = Project::findOrFail($project);

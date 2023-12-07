@@ -29,17 +29,12 @@ class ProjectController extends Controller
         return view('project.index', compact('projects'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('project.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(ProjectTaskRequest $request)
     {
         // dd($request);
@@ -115,7 +110,7 @@ class ProjectController extends Controller
 
 
 
-    public function searchProject(Request $request)
+    public function search(Request $request)
     {
         $searchValue = $request->input('searchValue');
 

@@ -20,7 +20,6 @@ class Member extends Authenticatable
         'lastName',
         'email',
         'password',
-        'role',
     ];
 
     /**

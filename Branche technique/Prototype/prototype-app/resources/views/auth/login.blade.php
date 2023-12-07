@@ -3,7 +3,7 @@
     <body class="hold-transition login-page">
         <div class="login-box">
             <div class="login-logo">
-                <a href="{{ url('/') }}"><b>{{ config('app.name') }}</b></a>
+                <a href="{{ url('/') }}"><b>Gestion Taches</b></a>
             </div>
             <!-- /.login-logo -->
 
@@ -12,7 +12,7 @@
                 <div class="card-body login-card-body">
                     <p class="login-box-msg">Sign in to start your session</p>
 
-                    <form method="POST" action="{{ route('login.store') }}">
+                    <form method="POST" action="{{ url('/login') }}">
                         @csrf
                         <div class="input-group mb-0">
                             <input name="email" type="email" class="form-control" placeholder="Email"

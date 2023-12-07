@@ -4,19 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Member;
 use App\Imports\MemberImport;
-    use App\Models\Project;
-    use Illuminate\Http\Request;
-    use App\Exports\MemberExport;
-    use App\Repositories\ManageMemberRepository;
-    use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Project;
+use Illuminate\Http\Request;
+use App\Exports\MemberExport;
+use App\Repositories\ManageMemberRepository;
+use Maatwebsite\Excel\Facades\Excel;
 
 
-    class MemberController extends Controller
+class MemberController extends Controller
 {
 
     protected $manageMemberRepository;
 
-    public function __construct(ManageMemberRepository $manageMemberRepository) {
+    public function __construct(ManageMemberRepository $manageMemberRepository)
+    {
         $this->manageMemberRepository = $manageMemberRepository;
     }
 
@@ -73,7 +74,7 @@ use App\Imports\MemberImport;
 
     public function update(Request $request, Member $member)
     {
-         // Define validation rules
+        // Define validation rules
         $request->validate([
             'firstName' => 'required|string|max:255',
             'lastName' => 'required|string|max:255',
@@ -103,7 +104,7 @@ use App\Imports\MemberImport;
     {
         $members = Member::members()->select('firstName', 'lastName', 'email')->get();
 
-        return Excel::download(new MemberExport($members),'members.xlsx');
+        return Excel::download(new MemberExport($members), 'members.xlsx');
     }
 
 
@@ -125,26 +126,28 @@ use App\Imports\MemberImport;
 
 
 
-    public function searchMember(Request $request)
+    public function search(Request $request)
     {
         $projects = Project::all();
-        $search = trim($request->input('search'));;
+        $search = trim($request->input('search'));
+        ;
 
         // Check if the search value is empty
         if (empty($search)) {
             $members = Member::members()->paginate(5); // Return the initial state without filtering
         } else {
             $members = Member::members()
-                            ->where(function ($query) use ($search) {
-                                $query->where('firstName', 'like', '%' . $search . '%')
-                                ->orWhere('lastName', 'like', '%' . $search . '%');})
-                            ->paginate(5);
+                ->where(function ($query) use ($search) {
+                    $query->where('firstName', 'like', '%' . $search . '%')
+                        ->orWhere('lastName', 'like', '%' . $search . '%');
+                })
+                ->paginate(5);
         }
 
         if ($request->ajax()) {
             return response()->json([
-            'table' => view('member.table', compact('members', 'projects'))->render(),
-            'pagination' => $members->links()->toHtml(), // Get pagination links
+                'table' => view('member.table', compact('members', 'projects'))->render(),
+                'pagination' => $members->links()->toHtml(), // Get pagination links
             ]);
         }
     }
