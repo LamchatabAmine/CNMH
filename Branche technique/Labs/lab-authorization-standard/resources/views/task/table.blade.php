@@ -33,7 +33,9 @@
         @empty
             <tr>
                 <td colspan="6">Aucun tache trouvé.
-                    <a href="{{ route('task.create', $project) }}" class="mx-1">Ajouter tache</a>
+                    @role('leader')
+                        <a href="{{ route('task.create', $project) }}" class="mx-1">Ajouter tache</a>
+                    @endrole
                 </td>
             </tr>
         @endforelse

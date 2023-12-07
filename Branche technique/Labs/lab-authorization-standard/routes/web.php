@@ -19,6 +19,10 @@ Route::get('/', function () {
 });
 
 
+// Route::get('/test', [AppBaseController::class, 'callAction']);
+
+
+
 
 
 Route::middleware(['auth'])->group(function () {
@@ -36,9 +40,5 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-
-
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();

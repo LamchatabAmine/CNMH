@@ -1,5 +1,6 @@
 @extends('layouts.app')
-{{-- @dd($project) --}}
+{{-- member --}}
+{{-- @dd(auth()->user()->roles) --}}
 @section('content')
     <div class="content-header">
         <div class="container-fluid">
@@ -7,11 +8,13 @@
                 <div class="col-sm-6">
                     {{-- <h1>Taches de $project->name </h1> --}}
                 </div>
-                <div class="col-sm-6">
-                    <div class="float-sm-right">
-                        <a href="{{ route('task.create', $project) }}" class="btn btn-sm btn-primary">Ajouter Tache</a>
+                @role('leader')
+                    <div class="col-sm-6">
+                        <div class="float-sm-right">
+                            <a href="{{ route('task.create', $project) }}" class="btn btn-sm btn-primary">Ajouter Tache</a>
+                        </div>
                     </div>
-                </div>
+                @endrole
             </div>
         </div>
     </div>

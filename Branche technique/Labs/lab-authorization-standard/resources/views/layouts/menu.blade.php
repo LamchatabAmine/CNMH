@@ -5,12 +5,13 @@
         <p>Home</p>
     </a>
 </li>
+@role('leader')
+    <li class="nav-item">
+        <a href="{{ route('task.create', $project) }}" class="nav-link {{ Request::is('task.create') ? 'active' : '' }}">
+            {{-- <i class="nav-icon fas fa-home"></i> --}}
+            <i class="nav-icon  fa fa-plus"></i>
 
-<li class="nav-item">
-    <a href="{{ route('task.create', $project) }}" class="nav-link {{ Request::is('task.create') ? 'active' : '' }}">
-        {{-- <i class="nav-icon fas fa-home"></i> --}}
-        <i class="nav-icon  fa fa-plus"></i>
-
-        <p>Ajouter</p>
-    </a>
-</li>
+            <p>Ajouter</p>
+        </a>
+    </li>
+@endrole
