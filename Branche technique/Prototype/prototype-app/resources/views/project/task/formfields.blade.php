@@ -4,7 +4,7 @@
 
 <div class="card card-primary">
     <div class="card-header">
-        <h3 class="card-title">{{ isset($task) ? 'Edit task' : 'Add task' }}</h3>
+        <h3 class="card-title">{{ isset($task) ? 'Modifier Tache' : 'Ajouter Tache' }}</h3>
     </div>
     <form method="POST"
         action="{{ isset($task) ? route('task.update', ['project' => $project, 'task' => $task]) : route('task.store', $project) }}">

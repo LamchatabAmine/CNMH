@@ -2,29 +2,32 @@
 
 namespace App\Repositories;
 
-// use Illuminate\Http\Request;
 use App\Models\Project;
+use App\Repositories\BaseRepository;
 
+class ProjectRepository extends BaseRepository
+{
 
+    // protected $project;
+    protected $fillable = [
+        'name',
+        'description',
+        'startDate',
+        'endDate',
+    ];
 
-class ProjectRepository implements ManageProjectRepository {
-
-    public function getAll() {
-        return Project::query()->paginate(5);
+    public function __construct(Project $project)
+    {
+        $this->model = $project;
     }
 
-    public function create(array $data) {
-        return Project::create($data);
+    public function getFieldData(): array
+    {
+        return $this->fillable;
     }
 
-    public function update(Project $project, array $data) {
-        $project->update($data);
-        return $project;
+    public function model(): string
+    {
+        return Project::class;
     }
-
-    public function delete(Project $project) {
-        return  $project->delete();
-    }
-
-
 }

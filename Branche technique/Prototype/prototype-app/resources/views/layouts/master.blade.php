@@ -42,8 +42,6 @@
     </script>
 
 
-
-
     <script>
         $(document).ready(function() {
             $(document).on('keyup', '#searchProject', function(e) {

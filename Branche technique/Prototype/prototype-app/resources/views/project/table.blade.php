@@ -7,9 +7,9 @@
             <th>{{ __('Date debut') }}</th>
             <th>{{ __('Date fin') }}</th>
             {{-- <th>{{__('Taches')}}</th> --}}
-            @can('create', App\Models\Member::class)
-                <th>{{ __('Action') }}</th>
-            @endcan
+            {{-- @role('leader') --}}
+            <th>{{ __('Action') }}</th>
+            {{-- @endrole --}}
         </tr>
     </thead>
     <tbody>
@@ -26,29 +26,30 @@
                     <a href="{{ route('task.index', $project) }}" class="btn btn-sm btn-primary">view tasks</a>
                 </td> --}}
                 <td>
-                    @can('update', App\Models\Member::class)
+                    @role('leader')
                         <a href="{{ route('project.edit', $project) }}" class="btn btn-sm btn-default ">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </a>
-                    @endcan
+                    @endrole
                     <a href="{{ route('task.index', $project) }}" class="btn btn-sm btn-primary">view tasks</a>
-                    @can('delete', App\Models\Member::class)
-                        <form method="POST" action="{{ route('project.destroy', $project) }}" style="display: inline-block;">
+                    @role('leader')
+                        <form method="POST" action="{{ route('project.destroy', $project) }}" style="display: inline-block;"
+                            onsubmit="return confirm('Vous êtes sûr ?');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger" onclick="confirm('vous êtes sûr')">
+                            <button type="submit" class="btn btn-sm btn-danger">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </form>
-                    @endcan
+                    @endrole
                 </td>
             </tr>
         @empty
             <tr>
                 <td colspan="7">Aucun projet trouvé.
-                    @can('create', App\Models\Member::class)
+                    @role('leader')
                         <a href="{{ route('project.create') }}" class="mx-1">Ajouter projet</a>
-                    @endcan
+                    @endrole
                 </td>
             </tr>
         @endforelse

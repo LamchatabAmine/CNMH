@@ -2,27 +2,32 @@
 
 namespace App\Repositories;
 
+use App\Models\User;
 use App\Models\Member;
+use App\Repositories\BaseRepository;
 
-class MemberRepository implements ManageMemberRepository {
-    public function getAll() {
-        // return Member::orderBy('startDate', 'asc')->paginate(5);
-        return  Member::members()->paginate(5);
+class MemberRepository extends BaseRepository
+{
+
+    protected $fillable = [
+        'firstName',
+        'lastName',
+        'email',
+        'password',
+    ];
+
+    public function __construct(User $user)
+    {
+        $this->model = $user;
     }
 
-    public function create(array $data) {
-        // dd($data);
-        return Member::create($data);
+    public function getFieldData(): array
+    {
+        return $this->fillable;
     }
 
-    public function update(Member $member, array $data) {
-        $member->update($data);
-        return $member;
+    public function model(): string
+    {
+        return User::class;
     }
-
-
-    public function delete(Member $member) {
-        return  $member->delete();
-    }
-
 }

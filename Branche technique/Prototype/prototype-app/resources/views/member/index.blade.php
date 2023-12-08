@@ -8,6 +8,12 @@
                     {{ session('success') }}.
                 </div>
             @endif
+            @if (session('error'))
+                <div class="alert alert-warning alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    {{ session('error') }}.
+                </div>
+            @endif
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1>Memebers</h1>
@@ -45,18 +51,18 @@
                         </div>
                         <div class="d-flex justify-content-between align-items-center p-2">
                             <div class="d-flex align-items-center">
-                                @can('create', App\Models\Member::class)
-                                    <form action="{{ route('member.import') }}" method="post" enctype="multipart/form-data"
-                                        id="importForm">
-                                        @csrf
-                                        <label for="upload" class="btn btn-default btn-sm mb-0 font-weight-normal">
-                                            <i class="fa-solid fa-file-arrow-down"></i>
-                                            {{ __('IMPORTER') }}
-                                        </label>
-                                        <input type="file" id="upload" name="file" style="display:none;"
-                                            onchange="submitForm()" />
-                                    </form>
-                                @endcan
+                                {{-- @can('create', App\Models\Member::class) --}}
+                                <form action="{{ route('member.import') }}" method="post" enctype="multipart/form-data"
+                                    id="importForm">
+                                    @csrf
+                                    <label for="upload" class="btn btn-default btn-sm mb-0 font-weight-normal">
+                                        <i class="fa-solid fa-file-arrow-down"></i>
+                                        {{ __('IMPORTER') }}
+                                    </label>
+                                    <input type="file" id="upload" name="file" style="display:none;"
+                                        onchange="submitForm()" />
+                                </form>
+                                {{-- @endcan --}}
                                 <a href="{{ route('member.export') }}" class="btn  btn-default btn-sm mt-0 mx-2">
                                     <i class="fa-solid fa-file-export"></i>
                                     {{ __('EXPORTER') }}

@@ -7,27 +7,36 @@ use Illuminate\Http\Request;
 use App\Exports\ProjectExport;
 use App\Imports\ProjectImport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Repositories\ProjectRepository;
 use App\Http\Requests\ProjectTaskRequest;
-use App\Repositories\ManageProjectRepository;
 
-class ProjectController extends Controller
+// use App\Repositories\ManageProjectRepository;
+
+class ProjectController extends AppBaseController
 {
-    protected $ManageProjectRepository;
+    // protected $ManageProjectRepository;
 
-    public function __construct(ManageProjectRepository $ManageProjectRepository) {
-        $this->ManageProjectRepository = $ManageProjectRepository;
+    // public function __construct(ManageProjectRepository $ManageProjectRepository) {
+    //     $this->ManageProjectRepository = $ManageProjectRepository;
+    // }
+
+
+    protected $projectRepository;
+
+    public function __construct(ProjectRepository $projectRepository)
+    {
+        $this->projectRepository = $projectRepository;
     }
 
 
     public function index()
     {
-        $projects = $this->ManageProjectRepository->getAll();
-        // if ($request->ajax()) {
-        //     return view('project.index', compact('projects'));
-        // }
+        $projects = $this->projectRepository->index();
+        // $projects = $this->ManageProjectRepository->getAll();
 
         return view('project.index', compact('projects'));
     }
+
 
     public function create()
     {
@@ -38,48 +47,43 @@ class ProjectController extends Controller
     public function store(ProjectTaskRequest $request)
     {
         // dd($request);
-        $data = $request->all();
+        $validatedData = $request->all();
 
-        $project = $this->ManageProjectRepository->create($data);
+        $this->projectRepository->store($validatedData);
+
+        // $project = $this->ManageProjectRepository->create($data);
 
         return redirect()->route('project.index')->with('success', 'projet créé avec succès');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Project $project)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
+
     public function edit(Project $project)
     {
+        $project = $this->projectRepository->edit($project);
+
         return view('project.edit', compact('project'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(ProjectTaskRequest $request, Project $project)
     {
-        $data = $request->all();
+        $validatedData = $request->all();
 
-        $this->ManageProjectRepository->update($project, $data);
+        $this->projectRepository->update($validatedData, $project);
+
+        // $this->ManageProjectRepository->update($project, $data);
 
         return redirect()->route('project.index')->with('success', 'projet mis à jour avec succès.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(Project $project)
     {
 
-        $this->ManageProjectRepository->delete($project);
+        $this->projectRepository->destroy($project);
+
+        // $this->ManageProjectRepository->delete($project);
 
         return redirect()->route('project.index')->with('success', 'projet supprimé avec succès');
     }
@@ -89,7 +93,7 @@ class ProjectController extends Controller
     {
         $projects = Project::all();
 
-        return Excel::download(new ProjectExport($projects),'projects.xlsx');
+        return Excel::download(new ProjectExport($projects), 'projects.xlsx');
     }
 
     public function import(Request $request)
@@ -116,22 +120,25 @@ class ProjectController extends Controller
 
         // Check if the search value is empty
         if (empty($searchValue)) {
-            $projects = Project::paginate(5); // Return the initial state without filtering
-            //  $pagination = $projects->links()->toHtml(); // Get pagination links
+            $projects = $this->projectRepository->index();
+
+            // $projects = Project::paginate(5); // Return the initial state without filtering
+
         } else {
-            $projects = Project::where('name', 'like', '%' . $searchValue . '%')->paginate(5);
+            $projects = $this->projectRepository->index(['search' => $searchValue]);
+
+            // $projects = Project::where('name', 'like', '%' . $searchValue . '%')->paginate(5);
             // $pagination = $projects->links()->toHtml(); // Get pagination links
         }
 
         if ($request->ajax()) {
             return response()->json([
-            'table' => view('project.table', compact('projects'))->render(),
-            'pagination' => $projects->links()->toHtml(), // Get pagination links
+                'table' => view('project.table', compact('projects'))->render(),
+                'pagination' => $projects->links()->toHtml(), // Get pagination links
             ]);
         }
 
     }
-
 
 
 

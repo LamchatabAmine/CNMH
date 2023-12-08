@@ -33,6 +33,7 @@ Route::get('/', function () {
 
 
 Route::middleware('auth')->group(function () {
+
     Route::prefix('project')->group(function () {
         // Route::resource('/', ProjectController::class);
 
@@ -79,6 +80,9 @@ Route::middleware('auth')->group(function () {
 
     });
     // Route::post('logout', [LoginUserController::class, 'destroy'])->name('logout');
+    Route::get('/', function () {
+        return redirect()->route('project.index');
+    });
 });
 
 

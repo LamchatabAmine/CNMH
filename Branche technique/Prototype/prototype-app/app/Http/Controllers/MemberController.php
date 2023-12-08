@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Member;
-use App\Imports\MemberImport;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Exports\MemberExport;
-use App\Repositories\ManageMemberRepository;
+use App\Imports\MemberImport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Repositories\MemberRepository;
+use App\Repositories\ManageMemberRepository;
 
 
-class MemberController extends Controller
+class MemberController extends AppBaseController
 {
+
+    /*
 
     protected $manageMemberRepository;
 
@@ -20,12 +24,27 @@ class MemberController extends Controller
     {
         $this->manageMemberRepository = $manageMemberRepository;
     }
+*/
+
+
+    protected $memberRepository;
+
+    public function __construct(MemberRepository $memberRepository)
+    {
+        $this->memberRepository = $memberRepository;
+    }
 
 
     public function index()
     {
+        // dd(User::role('member')->get());
+        // dd(Member::with('roles')->get());
+
         $projects = Project::all();
-        $members = $this->manageMemberRepository->getAll();
+        $members = $this->memberRepository->index();
+
+        // $members = $this->manageMemberRepository->getAll();
+
         return view('member.index', compact('members', 'projects'));
     }
 
@@ -50,24 +69,25 @@ class MemberController extends Controller
         ]);
 
         // If validation passes, continue with storing the member
-        $data = $request->all();
+        $validatedData = $request->all();
         // Hash the password
-        $data['password'] = bcrypt($data['password']);
+        $validatedData['password'] = bcrypt($validatedData['password']);
 
-        $this->manageMemberRepository->create($data);
+        // Member::create($validatedData)->assignRole('member');
+
+        $this->memberRepository->store($validatedData);
+
+        $user = User::latest()->first();
+        $user->assignRole('member');
 
         return redirect()->route('member.index')->with('success', 'Member created successfully');
     }
 
 
-    public function show(Member $member)
-    {
-        //
-    }
-
-
     public function edit(Member $member)
     {
+        $member = $this->memberRepository->edit($member);
+
         return view('member.edit', compact('member'));
     }
 
@@ -83,9 +103,11 @@ class MemberController extends Controller
         ]);
 
         // If validation passes, continue with storing the member
-        $data = $request->all();
+        $validatedData = $request->all();
 
-        $this->manageMemberRepository->update($member, $data);
+        $this->memberRepository->update($validatedData, $member);
+
+        // $this->manageMemberRepository->update($member, $data);
 
         return redirect()->route('member.index')->with('success', 'Member updated successfully');
     }
@@ -93,7 +115,9 @@ class MemberController extends Controller
 
     public function destroy(Member $member)
     {
-        $this->manageMemberRepository->delete($member);
+        $this->memberRepository->destroy($member);
+
+        // $this->manageMemberRepository->delete($member);
 
         return redirect()->route('member.index')->with('success', 'member supprimé avec succès');
 
@@ -102,7 +126,7 @@ class MemberController extends Controller
 
     public function export()
     {
-        $members = Member::members()->select('firstName', 'lastName', 'email')->get();
+        $members = User::role('member')->select('firstName', 'lastName', 'email')->get();
 
         return Excel::download(new MemberExport($members), 'members.xlsx');
     }
@@ -114,11 +138,20 @@ class MemberController extends Controller
             'file' => 'required|mimes:xlsx,xls,csv|max:2048',
         ]);
 
+        // dd($request);
+
         try {
             Excel::import(new MemberImport, $request->file('file'));
-        } catch (\Error $e) {
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->route('member.index')->withError('Quelque chose s\'est mal passé, vérifiez votre fichier');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            $errors = $e->validator->errors()->all();
+            $errorMessage = implode(', ', $errors);
+            return redirect()->route('member.index')->withError('Quelque chose s\'est mal passé, vérifiez votre formulaire: ' . $errorMessage);
+        } catch (\Exception $e) {
             return redirect()->route('member.index')->withError('Quelque chose s\'est mal passé, vérifiez votre fichier');
         }
+
         return redirect()->route('member.index')->with('success', 'Membres a ajouté avec succès');
     }
 
@@ -128,25 +161,29 @@ class MemberController extends Controller
 
     public function search(Request $request)
     {
-        $projects = Project::all();
+        // $projects = Project::all();
         $search = trim($request->input('search'));
-        ;
 
         // Check if the search value is empty
         if (empty($search)) {
-            $members = Member::members()->paginate(5); // Return the initial state without filtering
+            $members = $this->memberRepository->index();
+
+            // $members = Member::members()->paginate(5); // Return the initial state without filtering
         } else {
-            $members = Member::members()
-                ->where(function ($query) use ($search) {
-                    $query->where('firstName', 'like', '%' . $search . '%')
-                        ->orWhere('lastName', 'like', '%' . $search . '%');
-                })
-                ->paginate(5);
+
+            $members = $this->memberRepository->index(['search' => $search], 'firstName');
+
+            // $members = Member::members()
+            //     ->where(function ($query) use ($search) {
+            //         $query->where('firstName', 'like', '%' . $search . '%')
+            //             ->orWhere('lastName', 'like', '%' . $search . '%');
+            //     })
+            //     ->paginate(5);
         }
 
         if ($request->ajax()) {
             return response()->json([
-                'table' => view('member.table', compact('members', 'projects'))->render(),
+                'table' => view('member.table', compact('members'))->render(),
                 'pagination' => $members->links()->toHtml(), // Get pagination links
             ]);
         }

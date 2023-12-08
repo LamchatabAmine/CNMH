@@ -22,20 +22,20 @@
                     </a>
                 </li>
                 @isset($projects)
-                    @if($projects->isNotEmpty())
-                    <li class="nav-item">
-                        @if(isset($projects[0]))
-                            <a href="{{ route('task.index', ['project' => $projects[0]]) }}" class="nav-link">
-                        @else
-                            <a href="{{ route('task.index') }}" class="nav-link">
-                        @endif
-                                <i class="nav-icon fa-solid fa-bars-progress"></i>
-                                <p> {{ __('Taches') }} </p>
+                    @if ($projects->isNotEmpty())
+                        <li class="nav-item">
+                            @if (isset($projects[0]))
+                                <a href="{{ route('task.index', ['project' => $projects[0]]) }}" class="nav-link">
+                                @else
+                                    <a href="{{ route('task.index') }}" class="nav-link">
+                            @endif
+                            <i class="nav-icon fa-solid fa-bars-progress"></i>
+                            <p> {{ __('Taches') }} </p>
                             </a>
-                    </li>
+                        </li>
                     @endif
                 @endisset
-                @can('view', App\Models\Member::class)
+                @role('leader')
                     <li class="nav-item">
                         <a href="{{ route('member.index') }}" class="nav-link ">
                             <i class="fa-solid fa-users pl-1 pr-1"></i>
@@ -44,7 +44,7 @@
                             </p>
                         </a>
                     </li>
-                @endcan
+                @endrole
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

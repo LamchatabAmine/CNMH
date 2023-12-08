@@ -32,7 +32,7 @@ class PermissionSeeder extends Seeder
         // $member->givePermissionTo('index-Task', 'searchTask-Task');
 
         // Give 'member' role permissions for actions starting with 'index-' and 'search-'
-    
+
         // $member->givePermissionTo(
         //     Permission::whereIn('name', function ($query) {
         //         $query->select('name')
@@ -42,8 +42,23 @@ class PermissionSeeder extends Seeder
         //     })->get()
         // );
 
-        $member->givePermissionTo(Permission::where('name', 'like', 'index%')->get());
-        $member->givePermissionTo(Permission::where('name', 'like', 'search%')->get());
+
+        $member->givePermissionTo(
+            Permission::where('name', 'like', 'index%')
+                ->where('name', 'not like', 'index-Member%')
+                ->get()
+        );
+
+        $member->givePermissionTo(
+            Permission::where('name', 'like', 'search%')
+                ->where('name', 'not like', 'search-Member%')
+                ->get()
+        );
+
+
+
+        // $member->givePermissionTo(Permission::where('name', 'like', 'index%')->get());
+        // $member->givePermissionTo(Permission::where('name', 'like', 'search%')->get());
 
 
     }
