@@ -41,8 +41,8 @@ class MemberController extends AppBaseController
         // dd(Member::with('roles')->get());
 
         $projects = Project::all();
-        $members = $this->memberRepository->index();
-
+        $members = $this->memberRepository->index(['role' => 'member']);
+        // dd($members);
         // $members = $this->manageMemberRepository->getAll();
 
         return view('member.index', compact('members', 'projects'));
@@ -166,12 +166,12 @@ class MemberController extends AppBaseController
 
         // Check if the search value is empty
         if (empty($search)) {
-            $members = $this->memberRepository->index();
+            $members = $this->memberRepository->index(['role' => 'member']);
 
             // $members = Member::members()->paginate(5); // Return the initial state without filtering
         } else {
 
-            $members = $this->memberRepository->index(['search' => $search], 'firstName');
+            $members = $this->memberRepository->index(['roleSearch' => ['role' => 'member', 'search' => $search]], 'firstName');
 
             // $members = Member::members()
             //     ->where(function ($query) use ($search) {

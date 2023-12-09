@@ -26,9 +26,12 @@ class ProjectImport implements ToModel, WithHeadingRow
                 'startDate' => isset($row["date_debut"]) ? Carbon::createFromFormat('Y-m-d', $row["date_debut"])->format('Y-m-d H:i:s') : null,
                 'endDate' => isset($row["date_fin"]) ? Carbon::createFromFormat('Y-m-d', $row["date_fin"])->format('Y-m-d H:i:s') : null
             ]);
-        } catch (\ErrorException $e) {
-            return redirect()->route('project.index')->withError('Quelque chose s\'est mal passé, vérifiez votre fichier');
+        } catch (\InvalidArgumentException $e) {
+            return redirect()->route('project.index')->withError('Le symbole de séparation est introuvable. Pas assez de données disponibles pour satisfaire au format.');
         }
+        // catch (\ErrorException $e) {
+        //     return redirect()->route('project.index')->withError('Quelque chose s\'est mal passé, vérifiez votre fichier');
+        // }
     }
 
 
@@ -62,8 +65,12 @@ class ProjectImport implements ToModel, WithHeadingRow
         ]);
 
         if ($validator->fails()) {
-            // $errors = $validator->errors()->all();
-            // $errorMessage = implode(', ', $errors);
+            $errorMessage = 'Les données fournies ne sont pas valides. Veuillez vérifier les erreurs ci-dessous et réessayer.';
+
+            // Store the error message in the session
+            session()->flash('error', $errorMessage);
+
+            // throw new \Illuminate\Validation\ValidationException($validator, response()->json(['message' => $errorMessage], 422));
             throw new \Illuminate\Validation\ValidationException($validator);
         }
     }

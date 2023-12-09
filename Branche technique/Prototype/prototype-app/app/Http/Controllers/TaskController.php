@@ -111,7 +111,11 @@ class TaskController extends AppBaseController
 
         try {
             Excel::import(new TaskImport($project->id), $request->file('file'));
-        } catch (\Error $e) {
+        }
+        catch (\InvalidArgumentException $e) {
+            return back()->withError('Le symbole de séparation est introuvable. Pas assez de données disponibles pour satisfaire au format.');
+        }
+        catch (\Error $e) {
             return redirect()->route('task.index', $project)->withError('Quelque chose s\'est mal passé, vérifiez votre fichier');
         }
         return redirect()->route('task.index', $project)->with('success', 'Taches a ajouté avec succès');

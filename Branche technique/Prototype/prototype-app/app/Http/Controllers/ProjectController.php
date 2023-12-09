@@ -104,9 +104,12 @@ class ProjectController extends AppBaseController
 
         try {
             Excel::import(new ProjectImport, $request->file('file'));
-        } catch (\Error $e) {
-            return redirect()->route('project.index')->withError('Quelque chose s\'est mal passé, vérifiez votre fichier');
+        } catch (\InvalidArgumentException $e) {
+            return redirect()->route('project.index')->withError('Le symbole de séparation est introuvable. Pas assez de données disponibles pour satisfaire au format.');
         }
+        // catch (\Error $e) {
+        //     return redirect()->route('project.index')->withError('Quelque chose s\'est mal passé, vérifiez votre fichier');
+        // }
         return redirect()->route('project.index')->with('success', 'Projet a ajouté avec succès');
     }
 

@@ -24,6 +24,12 @@
                     {{ session('success') }}.
                 </div>
             @endif
+            @if (session('error'))
+                <div class="alert alert-warning alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    {{ session('error') }}.
+                </div>
+            @endif
             <div class="row">
                 <div class="col-12">
                     <div class="card">

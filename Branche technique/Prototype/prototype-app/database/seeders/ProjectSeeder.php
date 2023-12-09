@@ -16,14 +16,20 @@ class ProjectSeeder extends Seeder
         Project::create([
             'name' => 'Portfolio',
             'description' => 'Développement d\'un site web mettant en valeur nos compétences',
+            'startDate' => now(),
+            'endDate' => now(),
         ]);
         Project::create([
             'name' => 'Arbre des compétences',
             'description' => 'Création d\'une application web pour l\'évaluation des compétences.',
+            'startDate' => now(),
+            'endDate' => now(),
         ]);
         Project::create([
             'name' => 'CNMH',
             'description' => 'Création d\'une application web pour la gestion des patients de centre CNMH.',
+            'startDate' => now(),
+            'endDate' => now(),
         ]);
     }
 }
