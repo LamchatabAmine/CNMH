@@ -1,10 +1,10 @@
-# Lab laravel basic
+# Lab crud basic
 
 ## Travail à faire
 
 Le projet en cours consiste à développer une application CRUD (Create, Read, Update, Delete) basée sur le framework Laravel, mettant en œuvre la gestion des projets et de leurs tâches associées. 
 
-* compléter le travail sur `lab laravel basic`
+* compléter le travail sur `lab crud basic`
 * Créer le CRUD des tâches
 * La recherche avec AJAX
 * Avec la pagination
@@ -12,7 +12,15 @@ Le projet en cours consiste à développer une application CRUD (Create, Read, U
 * Pattern Repository
 * Filtrer par projet
 
-## Flux de travail du processus
+
+
+## Critères de validation
+* compléter le travail sur lab crud  basic
+* Design Pattern Repository
+
+
+
+## Commandes
 
 1. Commencez par cloner Lab Crud Basic.
 
@@ -23,6 +31,7 @@ Le projet en cours consiste à développer une application CRUD (Create, Read, U
 ```shell
     php artisan migrate:fresh --seed
 ```
+
 4. Pour afficher la progression de votre projet localement, exécutez cette commande
 
 ```shell
