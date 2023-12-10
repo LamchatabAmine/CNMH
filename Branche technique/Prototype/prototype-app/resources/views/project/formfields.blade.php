@@ -4,7 +4,7 @@
 
 <div class="card card-primary">
     <div class="card-header">
-        <h3 class="card-title">{{ isset($project) ? 'Edit Project' : 'Add Project' }}</h3>
+        <h3 class="card-title">{{ isset($project) ? 'Modifier projet' : 'Ajouter projet' }}</h3>
     </div>
     <form method="POST" action="{{ isset($project) ? route('project.update', $project->id) : route('project.store') }}">
         @csrf
@@ -46,8 +46,8 @@
             @enderror
         </div>
         <div class="card-footer">
-            <a href="{{ route('project.index') }}" class="btn btn-default">Cancel</a>
-            <button type="submit" class="btn btn-primary mx-2">{{ isset($project) ? 'Update' : 'Submit' }}</button>
+            <a href="{{ route('project.index') }}" class="btn btn-default">Annuler</a>
+            <button type="submit" class="btn btn-primary mx-2">{{ isset($project) ? 'Modifier' : 'Submit' }}</button>
         </div>
     </form>
 </div>

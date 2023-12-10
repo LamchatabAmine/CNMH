@@ -1,6 +1,6 @@
 <div class="card card-primary">
     <div class="card-header">
-        <h3 class="card-title">{{ isset($member) ? 'Edit membre' : 'Ajouter membre' }}</h3>
+        <h3 class="card-title">{{ isset($member) ? 'Modifier membre' : 'Ajouter membre' }}</h3>
     </div>
     <form method="POST" action="{{ isset($member) ? route('member.update', $member->id) : route('member.store') }}">
         @csrf
@@ -42,8 +42,8 @@
         </div>
 
         <div class="card-footer">
-            <a href="{{ route('member.index') }}" class="btn btn-default">Cancel</a>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <a href="{{ route('member.index') }}" class="btn btn-default">Annuler</a>
+            <button type="submit" class="btn btn-primary">{{ isset($member) ? 'Modifier' : 'Submit' }}</button>
         </div>
     </form>
 </div>

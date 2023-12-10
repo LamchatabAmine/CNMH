@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Project;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
+
 // use App\Repositories\TaskRepository;
 // use App\Repositories\MemberRepository;
 // use App\Repositories\ProjectRepository;
@@ -30,5 +32,11 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrapFive();
         Paginator::useBootstrapFour();
+
+        view()->composer('layouts.aside', function ($view) {
+            $project = Project::orderBy('id')->first();
+            // $projects = Project::all();
+            $view->with('project', $project);
+        });
     }
 }

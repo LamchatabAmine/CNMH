@@ -1,5 +1,3 @@
-
-
 {{-- @dd($project) --}}
 
 <div class="card card-primary">
@@ -47,8 +45,8 @@
             @enderror
         </div>
         <div class="card-footer">
-            <a href="{{ route('project.index') }}" class="btn btn-default">Cancel</a>
-            <button type="submit" class="btn btn-primary">{{ isset($task) ? 'Update' : 'Submit' }}</button>
+            <a href="{{ route('task.index', $project) }}" class="btn btn-default">Annuler</a>
+            <button type="submit" class="btn btn-primary">{{ isset($task) ? 'Modifier' : 'Submit' }}</button>
         </div>
     </form>
 </div>
