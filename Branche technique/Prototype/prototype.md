@@ -11,9 +11,8 @@ Cette application Web construite avec Laravel pour gérer des projets et des tâ
 ```bash
 npm install
 composer install
-php artisan migrate:fresh
-# php artisan db:seed
-php artisan db:seed --class=UserSeeder
+php artisan migrate:fresh --seed
+
 npm run dev
 ```
 

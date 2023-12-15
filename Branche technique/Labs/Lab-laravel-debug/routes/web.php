@@ -18,5 +18,12 @@ use App\Http\Controllers\CalculateController;
 //     return view('welcome');
 // });
 
+Route::get('/test', function () {
+    ob_start();
+    phpinfo();
+    return ob_get_clean();
+});
+
+
 
 Route::get('/', [CalculateController::class, 'calculate']);

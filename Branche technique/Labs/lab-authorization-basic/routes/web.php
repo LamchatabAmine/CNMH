@@ -1,12 +1,14 @@
 <?php
 
 
-use
-    Illuminate\Support\Facades\Route;
-    use App\Http\Controllers\TaskController;
-    use App\Http\Controllers\ProjectController;
-    use App\Http\Controllers\Auth\LoginController;
-    use App\Http\Controllers\Auth\RegisterController;
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,12 +21,12 @@ use
 |
 */
 
-Route::middleware(['guest'])->group(function () {
-    Route::get('/', [LoginController::class, 'index'])->name('login');
-    Route::post('/login', [LoginController::class, 'login']);
+// Route::middleware(['guest'])->group(function () {
+    // Route::get('/', [LoginController::class, 'index'])->name('login');
+    // Route::post('/login', [LoginController::class, 'login']);
     // Route::get('/register', [RegisterController::class, 'index'])->name('register');
     // Route::post('/register', [RegisterController::class, 'create']);
-});
+// });
 // Route::resource('project', ProjectController::class);
 
 // Route::resource('task', TaskController::class);
@@ -48,11 +50,14 @@ Route::middleware(['auth'])->group(function () {
 
 
 
+Route::get('/', function () {
+    return view('auth.login');
+});
 
 
 
 
-
+Auth::routes();
 
 
 
