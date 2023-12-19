@@ -1,4 +1,4 @@
-# Lab authentification basic
+# Lab authentification Standard
 
 ## Travail à faire
 
