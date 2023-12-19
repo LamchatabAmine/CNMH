@@ -22,7 +22,8 @@ class ProjectRepository extends BaseRepository {
         // return $this->project->attributesToArray();
     }
 
-    public function model():string{
+    public function model():string
+    {
         return Project::class;
     }
 }
